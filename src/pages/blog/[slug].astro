@@ -1,0 +1,86 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+const readTime = Math.ceil(post.body.split(' ').length / 200);
+---
+
+<BaseLayout title={`${post.data.title} - Blog`} currentPath="/blog">
+  <article class="py-20 px-6">
+    <div class="max-w-3xl mx-auto">
+      {/* Article Header */}
+      <header class="mb-12">
+        <h1 class="text-5xl font-bold text-slate-50 mb-4">
+          {post.data.title}
+        </h1>
+
+        <div class="flex items-center gap-4 text-slate-400 mb-6">
+          <time datetime={post.data.publishedAt.toISOString()}>
+            {post.data.publishedAt.toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })}
+          </time>
+          <span>•</span>
+          <span>{readTime} min read</span>
+        </div>
+
+        {post.data.tags && post.data.tags.length > 0 && (
+          <div class="flex flex-wrap gap-2">
+            {post.data.tags.map((tag) => (
+              <span class="px-3 py-1 bg-violet-500/20 text-violet-300 rounded-full text-sm">
+                #{tag}
+              </span>
+            ))}
+          </div>
+        )}
+      </header>
+
+      {/* Article Featured Image */}
+      {post.data.image && (
+        <figure class="mb-12 rounded-lg overflow-hidden bg-slate-800">
+          <img src={post.data.image} alt={post.data.title} class="w-full h-96 object-cover" />
+        </figure>
+      )}
+
+      {/* Article Content */}
+      <div class="prose prose-invert max-w-none">
+        <Content />
+      </div>
+
+      {/* Article Footer */}
+      <footer class="mt-16 pt-8 border-t border-slate-700">
+        <div class="flex items-center gap-4">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center">
+            <span class="text-2xl font-bold text-white">DF</span>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-slate-50">Dhaniar Febrin</h3>
+            <p class="text-slate-400">Frontend Developer & Tech Writer</p>
+          </div>
+        </div>
+      </footer>
+
+      {/* Navigation */}
+      <nav class="mt-12 pt-8 border-t border-slate-700">
+        <a href="/blog" class="inline-flex items-center gap-2 text-violet-400 hover:text-violet-300 transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+          Back to all articles
+        </a>
+      </nav>
+    </div>
+  </article>
+</BaseLayout>

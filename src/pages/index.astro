@@ -1,13 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import FeaturedProjects from '../components/FeaturedProjects.astro';
+import Contact from '../components/Contact.astro';
 ---
 
-<BaseLayout title="Portofolio Frontend Developer">
-  <main class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600">
-    <div class="text-center text-white">
-      <h1 class="text-5xl font-bold mb-4">Portofolio Frontend Developer</h1>
-      <p class="text-xl font-light mb-8">Selamat datang di halaman portofolio pribadi saya</p>
-      <p class="text-lg text-blue-100">Tailwind CSS berhasil diintegrasikan dengan baik!</p>
-    </div>
-  </main>
+<BaseLayout title="Dhaniar Febrin - Frontend Developer" currentPath="/">
+  <Hero />
+  <About />
+  <FeaturedProjects />
+  <Contact />
 </BaseLayout>

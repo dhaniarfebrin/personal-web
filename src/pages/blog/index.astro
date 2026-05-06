@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog');
+const posts = allPosts.sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+---
+
+<BaseLayout title="Blog - Dhaniar Febrin" currentPath="/blog">
+  <div class="py-20 px-6">
+    <div class="max-w-4xl mx-auto">
+      {/* Header */}
+      <div class="mb-16">
+        <h1 class="text-5xl font-bold text-slate-50 mb-4">
+          Writing &amp; <span class="text-violet-400">Thoughts</span>
+        </h1>
+        <p class="text-xl text-slate-400">
+          Articles about frontend development, web design, and tech tips.
+        </p>
+      </div>
+
+      {/* Blog Posts List */}
+      {posts.length === 0 ? (
+        <div class="text-center py-16">
+          <p class="text-slate-400 text-lg">No articles yet. Check back soon!</p>
+        </div>
+      ) : (
+        <div class="space-y-8">
+          {posts.map((post) => {
+            const readTime = Math.ceil(post.body.split(' ').length / 200);
+            return (
+              <a href={`/blog/${post.slug}`} class="group">
+                <article class="p-6 bg-slate-800/30 border border-slate-700/50 rounded-lg hover:border-violet-500/50 hover:bg-slate-800/50 transition-all">
+                  <div class="flex items-start justify-between gap-4">
+                    <div class="flex-1">
+                      <h2 class="text-2xl font-semibold text-slate-50 mb-2 group-hover:text-violet-400 transition-colors">
+                        {post.data.title}
+                      </h2>
+                      <p class="text-slate-400 mb-4">
+                        {post.data.description}
+                      </p>
+                      <div class="flex items-center gap-4 text-sm text-slate-400">
+                        <time datetime={post.data.publishedAt.toISOString()}>
+                          {post.data.publishedAt.toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                          })}
+                        </time>
+                        <span>•</span>
+                        <span>{readTime} min read</span>
+                        {post.data.tags && post.data.tags.length > 0 && (
+                          <>
+                            <span>•</span>
+                            <div class="flex gap-2">
+                              {post.data.tags.slice(0, 2).map((tag) => (
+                                <span class="px-2 py-1 bg-slate-700/50 text-slate-300 rounded text-xs">
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </a>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  </div>
+</BaseLayout>

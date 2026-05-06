@@ -1,0 +1,55 @@
+---
+const techStack = [
+  'React',
+  'Astro',
+  'TypeScript',
+  'Tailwind CSS',
+  'JavaScript',
+  'HTML & CSS',
+  'Next.js',
+  'Vue.js',
+  'Git',
+  'Figma',
+  'Web Design',
+  'UI/UX',
+];
+---
+
+<section class="py-20 px-6">
+  <div class="max-w-7xl mx-auto">
+    <h2 class="text-4xl font-bold mb-12 text-slate-50">
+      About <span class="text-violet-400">Me</span>
+    </h2>
+
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      {/* Text Content */}
+      <div class="space-y-6">
+        <p class="text-lg text-slate-300 leading-relaxed">
+          I'm a passionate frontend developer with a keen eye for detail and a love for creating beautiful, functional user interfaces. With several years of experience in web development, I've worked on projects ranging from small startups to larger organizations.
+        </p>
+
+        <p class="text-lg text-slate-300 leading-relaxed">
+          My journey in web development started with a curiosity about how websites work, which evolved into a full-fledged career. I'm constantly learning and staying updated with the latest technologies and best practices in the industry.
+        </p>
+
+        <p class="text-lg text-slate-300 leading-relaxed">
+          When I'm not coding, you can find me exploring new design trends, contributing to open-source projects, or sharing knowledge with the developer community through writing.
+        </p>
+      </div>
+
+      {/* Tech Stack */}
+      <div>
+        <h3 class="text-2xl font-semibold text-slate-50 mb-6">
+          Tech Stack
+        </h3>
+        <div class="flex flex-wrap gap-3">
+          {techStack.map((tech) => (
+            <span class="px-4 py-2 bg-slate-800 border border-slate-700 text-slate-300 rounded-lg text-sm font-medium hover:border-violet-500 hover:text-violet-400 transition-colors">
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
