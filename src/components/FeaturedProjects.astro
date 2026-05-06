@@ -5,9 +5,6 @@ const allProjects = await getCollection('projects');
 const featuredProjects = allProjects.slice(0, 3);
 ---
 
-import {getCollection} from 'astro:content'; const allProjects = await getCollection('projects');
-const featuredProjects = allProjects.slice(0, 3); ---
-
 <section id="projects" class="py-20 px-6 bg-slate-800/30">
   <div class="max-w-7xl mx-auto">
     <div class="flex items-center justify-between mb-12">
