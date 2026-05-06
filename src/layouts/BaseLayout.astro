@@ -1,4 +1,5 @@
 ---
+import { ViewTransitions } from 'astro:transitions';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 
@@ -17,6 +18,50 @@ const { title, currentPath = '/' } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <ViewTransitions />
+    <style>
+      /* Scroll reveal animation */
+      .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      }
+
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+    <script>
+      // Initialize scroll reveal on page load and navigation
+      function initScrollReveal() {
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const observerOptions = {
+          threshold: 0.1,
+          rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('active');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, observerOptions);
+
+        revealElements.forEach((element) => {
+          observer.observe(element);
+        });
+      }
+
+      // Initialize on page load
+      document.addEventListener('DOMContentLoaded', initScrollReveal);
+
+      // Reinitialize on Astro navigation (ViewTransitions)
+      document.addEventListener('astro:after-swap', initScrollReveal);
+    </script>
   </head>
   <body class="bg-slate-900 text-slate-50 min-h-screen flex flex-col">
     <Navbar currentPath={currentPath} />

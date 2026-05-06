@@ -15,7 +15,7 @@ const techStack = [
 ];
 ---
 
-<section class="py-20 px-6">
+<section class="reveal py-20 px-6">
   <div class="max-w-7xl mx-auto">
     <h2 class="text-4xl font-bold mb-12 text-slate-50">
       About <span class="text-violet-400">Me</span>
@@ -44,7 +44,7 @@ const techStack = [
         </h3>
         <div class="flex flex-wrap gap-3">
           {techStack.map((tech) => (
-            <span class="px-4 py-2 bg-slate-800 border border-slate-700 text-slate-300 rounded-lg text-sm font-medium hover:border-violet-500 hover:text-violet-400 transition-colors">
+            <span class="px-4 py-2 bg-slate-800 border border-slate-700 text-slate-300 rounded-lg text-sm font-medium hover:border-violet-500 hover:text-violet-400 hover:bg-slate-700/50 transition-all duration-300">
               {tech}
             </span>
           ))}

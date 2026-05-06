@@ -5,7 +5,7 @@ const allProjects = await getCollection('projects');
 const featuredProjects = allProjects.slice(0, 3);
 ---
 
-<section id="projects" class="py-20 px-6 bg-slate-800/30">
+<section id="projects" class="reveal py-20 px-6 bg-slate-800/30">
   <div class="max-w-7xl mx-auto">
     <div class="flex items-center justify-between mb-12">
       <h2 class="text-4xl font-bold text-slate-50">
@@ -13,11 +13,11 @@ const featuredProjects = allProjects.slice(0, 3);
       </h2>
       <a
         href="/projects"
-        class="text-violet-400 hover:text-violet-300 font-semibold flex items-center gap-2 transition-colors"
+        class="text-violet-400 hover:text-violet-300 font-semibold flex items-center gap-2 transition-colors duration-300 hover:translate-x-1"
       >
         View all
         <svg
-          class="w-5 h-5"
+          class="w-5 h-5 transition-transform duration-300"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -40,10 +40,10 @@ const featuredProjects = allProjects.slice(0, 3);
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {featuredProjects.map((project) => (
             <div
-              class="group h-full cursor-pointer rounded-lg overflow-hidden transition-all"
+              class="group h-full cursor-pointer rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-2"
               onclick={`window.location.href='/projects/${project.slug}'`}
             >
-              <div class="h-full bg-slate-800 border border-slate-700 rounded-lg overflow-hidden hover:border-violet-500/50 hover:shadow-lg hover:shadow-violet-500/10 transition-all">
+              <div class="h-full bg-slate-800 border border-slate-700 rounded-lg overflow-hidden hover:border-violet-500/50 hover:shadow-lg hover:shadow-violet-500/10 transition-all duration-300">
                 {/* Project Image */}
                 {project.data.image && (
                   <div class="w-full h-40 bg-gradient-to-br from-violet-500/20 to-purple-500/20 overflow-hidden">
@@ -57,7 +57,7 @@ const featuredProjects = allProjects.slice(0, 3);
 
                 {/* Project Info */}
                 <div class="p-6">
-                  <h3 class="text-xl font-semibold text-slate-50 mb-2 group-hover:text-violet-400 transition-colors">
+                  <h3 class="text-xl font-semibold text-slate-50 mb-2 group-hover:text-violet-400 transition-colors duration-300">
                     {project.data.title}
                   </h3>
                   <p class="text-slate-400 text-sm mb-4 line-clamp-2">
@@ -67,7 +67,7 @@ const featuredProjects = allProjects.slice(0, 3);
                   {/* Tech Stack */}
                   <div class="flex flex-wrap gap-2 mb-4">
                     {project.data.technologies.slice(0, 3).map((tech) => (
-                      <span class="text-xs px-2 py-1 bg-slate-700/50 text-slate-300 rounded">
+                      <span class="text-xs px-2 py-1 bg-slate-700/50 text-slate-300 rounded transition-colors duration-300 group-hover:bg-violet-500/20 group-hover:text-violet-300">
                         {tech}
                       </span>
                     ))}
@@ -86,7 +86,7 @@ const featuredProjects = allProjects.slice(0, 3);
                         target="_blank"
                         rel="noopener noreferrer"
                         onclick="event.stopPropagation()"
-                        class="flex items-center gap-1 text-sm text-slate-400 hover:text-violet-400 transition-colors"
+                        class="flex items-center gap-1 text-sm text-slate-400 hover:text-violet-400 transition-colors duration-300 hover:translate-x-0.5"
                       >
                         <svg
                           class="w-4 h-4"
@@ -104,7 +104,7 @@ const featuredProjects = allProjects.slice(0, 3);
                         target="_blank"
                         rel="noopener noreferrer"
                         onclick="event.stopPropagation()"
-                        class="flex items-center gap-1 text-sm text-slate-400 hover:text-violet-400 transition-colors"
+                        class="flex items-center gap-1 text-sm text-slate-400 hover:text-violet-400 transition-colors duration-300 hover:translate-x-0.5"
                       >
                         <svg
                           class="w-4 h-4"
