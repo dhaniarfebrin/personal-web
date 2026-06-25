@@ -1,4 +1,6 @@
 ---
+import ThemeToggle from './ThemeToggle.astro';
+
 interface Props {
   currentPath?: string;
 }
@@ -21,7 +23,7 @@ const navLinks = [
     </a>
 
     {/* Navigation Links */}
-    <div class="flex items-center gap-8">
+    <div class="flex items-center gap-6">
       <ul class="hidden md:flex gap-8">
         {navLinks.map((link) => (
           <li>
@@ -38,6 +40,9 @@ const navLinks = [
           </li>
         ))}
       </ul>
+
+      {/* Theme Toggle */}
+      <ThemeToggle />
 
       {/* Resume Button — button-primary style */}
       <a
