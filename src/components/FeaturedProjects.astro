@@ -5,97 +5,77 @@ const allProjects = await getCollection('projects');
 const featuredProjects = allProjects.slice(0, 3);
 ---
 
-<section id="projects" class="reveal py-20 px-6 bg-slate-800/30">
-  <div class="max-w-7xl mx-auto">
-    <div class="flex items-center justify-between mb-12">
-      <h2 class="text-4xl font-bold text-slate-50">
-        Featured <span class="text-violet-400">Projects</span>
-      </h2>
+<section
+  id="projects"
+  class="bg-canvas border-t border-hairline py-section px-6"
+>
+  <div class="max-w-content mx-auto">
+    {/* Section Header */}
+    <div
+      class="flex items-baseline justify-between mb-8 pb-3 border-b border-hairline"
+    >
+      <h2 class="text-heading-md text-ink">Featured Projects</h2>
       <a
         href="/projects"
-        class="text-violet-400 hover:text-violet-300 font-semibold flex items-center gap-2 transition-colors duration-300 hover:translate-x-1"
+        class="text-caption-md text-mute hover:text-ink transition-colors duration-150"
       >
-        View all
-        <svg
-          class="w-5 h-5 transition-transform duration-300"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-        </svg>
+        View all →
       </a>
     </div>
 
     {
       featuredProjects.length === 0 ? (
-        <div class="text-center py-12">
-          <p class="text-slate-400">No projects yet. Check back soon!</p>
+        <div class="py-8 border-b border-hairline">
+          <p class="text-sm text-mute">[-] No projects yet. Check back soon.</p>
         </div>
       ) : (
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div>
           {featuredProjects.map((project) => (
-            <div
-              class="group h-full cursor-pointer rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-2"
-              onclick={`window.location.href='/projects/${project.slug}'`}
-            >
-              <div class="h-full bg-slate-800 border border-slate-700 rounded-lg overflow-hidden hover:border-violet-500/50 hover:shadow-lg hover:shadow-violet-500/10 transition-all duration-300">
-                {/* Project Image */}
-                {project.data.image && (
-                  <div class="w-full h-40 bg-gradient-to-br from-violet-500/20 to-purple-500/20 overflow-hidden">
-                    <img
-                      src={project.data.image}
-                      alt={project.data.title}
-                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
+            <div class="group relative py-5 border-b border-hairline hover:bg-surface-soft transition-colors duration-150 -mx-3 px-3">
+              <div class="flex items-start gap-3">
+                <span class="text-sm text-mute mt-0.5 shrink-0">[+]</span>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-baseline justify-between gap-4 flex-wrap">
+                    {/*
+                      Link judul di-stretch pakai after pseudo-element
+                      sehingga seluruh baris bisa diklik tanpa nested <a>
+                    */}
+                    <h3 class="text-sm font-bold text-ink">
+                      <a
+                        href={`/projects/${project.slug}`}
+                        class="after:absolute after:inset-0 group-hover:underline"
+                      >
+                        {project.data.title}
+                      </a>
+                    </h3>
+                    {/* Tech tags inline */}
+                    <div class="flex gap-2 flex-wrap">
+                      {project.data.technologies
+                        .slice(0, 3)
+                        .map((tech: string) => (
+                          <span class="text-xs text-mute">{tech}</span>
+                        ))}
+                      {project.data.technologies.length > 3 && (
+                        <span class="text-xs text-mute">
+                          +{project.data.technologies.length - 3}
+                        </span>
+                      )}
+                    </div>
                   </div>
-                )}
-
-                {/* Project Info */}
-                <div class="p-6">
-                  <h3 class="text-xl font-semibold text-slate-50 mb-2 group-hover:text-violet-400 transition-colors duration-300">
-                    {project.data.title}
-                  </h3>
-                  <p class="text-slate-400 text-sm mb-4 line-clamp-2">
+                  <p class="text-sm text-body mt-1 line-clamp-2">
                     {project.data.description}
                   </p>
 
-                  {/* Tech Stack */}
-                  <div class="flex flex-wrap gap-2 mb-4">
-                    {project.data.technologies.slice(0, 3).map((tech) => (
-                      <span class="text-xs px-2 py-1 bg-slate-700/50 text-slate-300 rounded transition-colors duration-300 group-hover:bg-violet-500/20 group-hover:text-violet-300">
-                        {tech}
-                      </span>
-                    ))}
-                    {project.data.technologies.length > 3 && (
-                      <span class="text-xs px-2 py-1 text-slate-400">
-                        +{project.data.technologies.length - 3}
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Links */}
-                  <div class="flex gap-3 pt-4 border-t border-slate-700">
+                  {/* Links — z-index lebih tinggi agar klik tidak diambil alih after pseudo-element */}
+                  <div class="relative z-10 flex gap-4 mt-3">
                     {project.data.githubUrl && (
                       <a
                         href={project.data.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        onclick="event.stopPropagation()"
-                        class="flex items-center gap-1 text-sm text-slate-400 hover:text-violet-400 transition-colors duration-300 hover:translate-x-0.5"
+                        class="text-xs text-mute hover:text-ink underline transition-colors"
                       >
-                        <svg
-                          class="w-4 h-4"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                        </svg>
-                        Code
+                        [code]
                       </a>
                     )}
                     {project.data.liveUrl && (
@@ -103,23 +83,9 @@ const featuredProjects = allProjects.slice(0, 3);
                         href={project.data.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        onclick="event.stopPropagation()"
-                        class="flex items-center gap-1 text-sm text-slate-400 hover:text-violet-400 transition-colors duration-300 hover:translate-x-0.5"
+                        class="text-xs text-mute hover:text-ink underline transition-colors"
                       >
-                        <svg
-                          class="w-4 h-4"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                          />
-                        </svg>
-                        Demo
+                        [demo]
                       </a>
                     )}
                   </div>

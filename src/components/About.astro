@@ -15,41 +15,46 @@ const techStack = [
 ];
 ---
 
-<section class="reveal py-20 px-6">
-  <div class="max-w-7xl mx-auto">
-    <h2 class="text-4xl font-bold mb-12 text-slate-50">
-      About <span class="text-violet-400">Me</span>
-    </h2>
+<section class="bg-canvas border-t border-hairline py-section px-6">
+  <div class="max-w-content mx-auto">
 
-    <div class="grid md:grid-cols-2 gap-12 items-center">
+    {/* Section Header */}
+    <div class="pb-3 mb-8 border-b border-hairline">
+      <h2 class="text-heading-md text-ink">About Me</h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-12">
       {/* Text Content */}
-      <div class="space-y-6">
-        <p class="text-lg text-slate-300 leading-relaxed">
-          I'm a passionate frontend developer with a keen eye for detail and a love for creating beautiful, functional user interfaces. With several years of experience in web development, I've worked on projects ranging from small startups to larger organizations.
+      <div class="space-y-4">
+        <p class="text-sm text-body leading-relaxed">
+          I'm a frontend developer with a keen eye for detail and a love for creating
+          functional user interfaces. I've worked on projects ranging from small startups
+          to larger organizations.
         </p>
-
-        <p class="text-lg text-slate-300 leading-relaxed">
-          My journey in web development started with a curiosity about how websites work, which evolved into a full-fledged career. I'm constantly learning and staying updated with the latest technologies and best practices in the industry.
+        <p class="text-sm text-body leading-relaxed">
+          My journey started with a curiosity about how websites work, which evolved into
+          a full-fledged career. I'm constantly learning and staying updated with the
+          latest technologies and best practices.
         </p>
-
-        <p class="text-lg text-slate-300 leading-relaxed">
-          When I'm not coding, you can find me exploring new design trends, contributing to open-source projects, or sharing knowledge with the developer community through writing.
+        <p class="text-sm text-body leading-relaxed">
+          When not coding, you can find me exploring new design trends, contributing to
+          open-source projects, or sharing knowledge with the developer community.
         </p>
       </div>
 
-      {/* Tech Stack */}
+      {/* Tech Stack — list-row style */}
       <div>
-        <h3 class="text-2xl font-semibold text-slate-50 mb-6">
-          Tech Stack
-        </h3>
-        <div class="flex flex-wrap gap-3">
+        <h3 class="text-sm font-bold text-ink mb-4">Tech Stack</h3>
+        <div class="border-t border-hairline">
           {techStack.map((tech) => (
-            <span class="px-4 py-2 bg-slate-800 border border-slate-700 text-slate-300 rounded-lg text-sm font-medium hover:border-violet-500 hover:text-violet-400 hover:bg-slate-700/50 transition-all duration-300">
-              {tech}
-            </span>
+            <div class="flex items-center gap-3 py-2 border-b border-hairline">
+              <span class="text-xs text-mute">[+]</span>
+              <span class="text-sm text-ink">{tech}</span>
+            </div>
           ))}
         </div>
       </div>
     </div>
+
   </div>
 </section>

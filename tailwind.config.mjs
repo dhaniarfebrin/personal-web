@@ -5,137 +5,98 @@ export default {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   theme: {
     extend: {
-      animation: {
-        'fade-in': 'fadeIn 0.6s ease-out forwards',
-        'glow-1': 'glow1 6s ease-in-out infinite',
-        'glow-2': 'glow2 7s ease-in-out infinite',
-        'glow-3': 'glow3 8s ease-in-out infinite',
-        'float-0': 'float0 4s ease-in-out infinite',
-        'float-1': 'float1 5s ease-in-out infinite',
-        'float-2': 'float2 6s ease-in-out infinite',
+      fontFamily: {
+        sans: ['"JetBrains Mono"', 'IBM Plex Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace'],
+        mono: ['"JetBrains Mono"', 'IBM Plex Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace'],
       },
-      keyframes: {
-        fadeIn: {
-          '0%': {
-            opacity: '0',
-            transform: 'translateY(10px)',
-          },
-          '100%': {
-            opacity: '1',
-            transform: 'translateY(0)',
-          },
-        },
-        glow1: {
-          '0%, 100%': {
-            transform: 'translate(0, 0)',
-          },
-          '50%': {
-            transform: 'translate(30px, -30px)',
-          },
-        },
-        glow2: {
-          '0%, 100%': {
-            transform: 'translate(0, 0)',
-          },
-          '50%': {
-            transform: 'translate(-40px, 40px)',
-          },
-        },
-        glow3: {
-          '0%, 100%': {
-            transform: 'translate(0, 0)',
-          },
-          '50%': {
-            transform: 'translate(20px, 20px)',
-          },
-        },
-        float0: {
-          '0%, 100%': {
-            transform: 'translateY(0px)',
-          },
-          '50%': {
-            transform: 'translateY(-20px)',
-          },
-        },
-        float1: {
-          '0%, 100%': {
-            transform: 'translateY(0px)',
-          },
-          '50%': {
-            transform: 'translateY(-25px)',
-          },
-        },
-        float2: {
-          '0%, 100%': {
-            transform: 'translateY(0px)',
-          },
-          '50%': {
-            transform: 'translateY(-30px)',
-          },
-        },
+      colors: {
+        canvas: '#fdfcfc',
+        ink: '#201d1d',
+        'ink-deep': '#0f0000',
+        charcoal: '#302c2c',
+        body: '#424245',
+        mute: '#646262',
+        stone: '#6e6e73',
+        ash: '#9a9898',
+        'surface-soft': '#f8f7f7',
+        'surface-card': '#f1eeee',
+        'surface-dark': '#201d1d',
+        'surface-dark-elevated': '#302c2c',
+        hairline: 'rgba(15,0,0,0.12)',
+        'hairline-strong': '#646262',
+        accent: '#007aff',
+        'accent-hover': '#0056b3',
+        danger: '#ff3b30',
+        warning: '#ff9f0a',
+        success: '#30d158',
       },
-      typography: (theme) => ({
+      borderRadius: {
+        none: '0px',
+        sm: '4px',
+        full: '9999px',
+      },
+      fontSize: {
+        'display-xl': ['38px', { lineHeight: '1.5', fontWeight: '700' }],
+        'heading-md': ['16px', { lineHeight: '1.5', fontWeight: '700' }],
+        'body-md': ['16px', { lineHeight: '1.5', fontWeight: '400' }],
+        'caption-md': ['14px', { lineHeight: '2', fontWeight: '400' }],
+      },
+      spacing: {
+        section: '96px',
+      },
+      maxWidth: {
+        content: '960px',
+      },
+      typography: () => ({
         DEFAULT: {
           css: {
-            '--tw-prose-body': theme('colors.slate[400]'),
-            '--tw-prose-headings': theme('colors.slate[50]'),
-            '--tw-prose-links': theme('colors.violet[400]'),
-            '--tw-prose-bold': theme('colors.slate[50]'),
-            '--tw-prose-counters': theme('colors.violet[400]'),
-            '--tw-prose-bullets': theme('colors.violet[500]'),
-            '--tw-prose-hr': theme('colors.slate[700]'),
-            '--tw-prose-quotes': theme('colors.slate[300]'),
-            '--tw-prose-quote-borders': theme('colors.violet[500]'),
-            '--tw-prose-captions': theme('colors.slate[400]'),
-            '--tw-prose-code': theme('colors.violet[400]'),
-            '--tw-prose-pre-bg': theme('colors.slate[800]'),
-            '--tw-prose-pre-code': theme('colors.slate[50]'),
-            '--tw-prose-th-borders': theme('colors.slate[700]'),
-            '--tw-prose-td-borders': theme('colors.slate[700]'),
+            '--tw-prose-body': '#424245',
+            '--tw-prose-headings': '#201d1d',
+            '--tw-prose-links': '#201d1d',
+            '--tw-prose-bold': '#201d1d',
+            '--tw-prose-counters': '#646262',
+            '--tw-prose-bullets': '#646262',
+            '--tw-prose-hr': 'rgba(15,0,0,0.12)',
+            '--tw-prose-quotes': '#302c2c',
+            '--tw-prose-quote-borders': '#646262',
+            '--tw-prose-captions': '#646262',
+            '--tw-prose-code': '#201d1d',
+            '--tw-prose-pre-bg': '#f1eeee',
+            '--tw-prose-pre-code': '#201d1d',
+            '--tw-prose-th-borders': 'rgba(15,0,0,0.12)',
+            '--tw-prose-td-borders': 'rgba(15,0,0,0.12)',
+            fontFamily: '"JetBrains Mono", IBM Plex Mono, ui-monospace, monospace',
             a: {
-              fontWeight: '500',
+              fontWeight: '400',
               textDecoration: 'underline',
-              textDecorationColor: theme('colors.violet[500]'),
-              textUnderlineOffset: '2px',
-              '&:hover': {
-                color: theme('colors.violet[300]'),
-              },
+              color: '#201d1d',
             },
             code: {
-              backgroundColor: theme('colors.slate[800]'),
-              color: theme('colors.violet[300]'),
+              backgroundColor: '#f1eeee',
+              color: '#201d1d',
               padding: '2px 6px',
-              borderRadius: '3px',
-              fontWeight: '500',
+              borderRadius: '4px',
+              fontWeight: '400',
             },
             'code::before': false,
             'code::after': false,
             'pre code': {
               backgroundColor: 'transparent',
-              color: theme('colors.slate[50]'),
+              color: '#201d1d',
               padding: '0',
             },
             blockquote: {
-              borderLeftColor: theme('colors.violet[500]'),
-              color: theme('colors.slate[300]'),
-              fontStyle: 'italic',
+              borderLeftColor: '#646262',
+              color: '#302c2c',
+              fontStyle: 'normal',
             },
-            h1: {
-              color: theme('colors.slate[50]'),
-              fontWeight: '700',
-            },
-            h2: {
-              color: theme('colors.slate[50]'),
-              fontWeight: '700',
-            },
-            h3: {
-              color: theme('colors.slate[50]'),
-              fontWeight: '600',
-            },
+            h1: { color: '#201d1d', fontWeight: '700' },
+            h2: { color: '#201d1d', fontWeight: '700' },
+            h3: { color: '#201d1d', fontWeight: '700' },
           },
         },
       }),
     },
   },
   plugins: [typography],
-}
+};
