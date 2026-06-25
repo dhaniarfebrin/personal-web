@@ -2,36 +2,63 @@
 
 ---
 
-<section id="contact" class="reveal py-20 px-6">
-  <div class="max-w-3xl mx-auto text-center">
-    <h2 class="text-4xl font-bold mb-6 text-slate-50">
-      Get In <span class="text-violet-400">Touch</span>
-    </h2>
+<section id="contact" class="bg-canvas border-t border-hairline py-section px-6">
+  <div class="max-w-content mx-auto">
 
-    <p class="text-lg text-slate-400 mb-12 leading-relaxed">
-      Although I'm not currently looking for any new opportunities, my inbox is
-      always open. Whether you have a question, a project idea, or just want to
-      say hi, I'll try my best to get back to you!
-    </p>
+    {/* Section Header */}
+    <div class="pb-3 mb-8 border-b border-hairline">
+      <h2 class="text-heading-md text-ink">Contact</h2>
+    </div>
 
-    <a
-      href="mailto:dhaniarfebrinwahyudi@gmail.com"
-      class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-violet-600 to-violet-500 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-violet-500/50 transition-all duration-300 transform hover:-translate-y-2"
-    >
-      <svg
-        class="w-5 h-5 transition-transform duration-300 group-hover:translate-y-1"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-        ></path>
-      </svg>
-      Say Hello
-    </a>
+    <div class="grid md:grid-cols-2 gap-12">
+      {/* Left — Copy */}
+      <div class="space-y-4">
+        <p class="text-sm text-body leading-relaxed">
+          My inbox is always open. Whether you have a question, a project idea, or just
+          want to say hi — I'll get back to you.
+        </p>
+        <a
+          href="mailto:dhaniarfebrinwahyudi@gmail.com"
+          class="inline-block text-sm text-ink underline hover:opacity-70 transition-opacity"
+        >
+          dhaniarfebrinwahyudi@gmail.com
+        </a>
+      </div>
+
+      {/* Right — Simple Form */}
+      <form class="space-y-4" onsubmit="event.preventDefault()">
+        <div>
+          <label class="block text-xs text-mute mb-1">Name</label>
+          <input
+            type="text"
+            placeholder="Your name"
+            class="w-full bg-surface-soft text-ink text-sm px-3 py-2 border border-hairline rounded-sm focus:outline-none focus:border-ink focus:bg-canvas transition-colors duration-150"
+          />
+        </div>
+        <div>
+          <label class="block text-xs text-mute mb-1">Email</label>
+          <input
+            type="email"
+            placeholder="your@email.com"
+            class="w-full bg-surface-soft text-ink text-sm px-3 py-2 border border-hairline rounded-sm focus:outline-none focus:border-ink focus:bg-canvas transition-colors duration-150"
+          />
+        </div>
+        <div>
+          <label class="block text-xs text-mute mb-1">Message</label>
+          <textarea
+            rows="4"
+            placeholder="What problem are you trying to solve?"
+            class="w-full bg-surface-soft text-ink text-sm px-3 py-3 border border-hairline rounded-sm focus:outline-none focus:border-ink focus:bg-canvas transition-colors duration-150 resize-none"
+          ></textarea>
+        </div>
+        <button
+          type="submit"
+          class="px-5 py-2 bg-ink text-canvas text-sm font-medium rounded-sm hover:bg-ink-deep transition-colors duration-150"
+        >
+          Send message
+        </button>
+      </form>
+    </div>
+
   </div>
 </section>

@@ -1,5 +1,4 @@
 ---
-import { ViewTransitions } from 'astro:transitions';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 
@@ -18,54 +17,22 @@ const { title, currentPath = '/' } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
-    <ViewTransitions />
+    <!-- JetBrains Mono from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-      /* Scroll reveal animation */
-      .reveal {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-      }
-
-      .reveal.active {
-        opacity: 1;
-        transform: translateY(0);
+      * {
+        font-family: 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
       }
     </style>
-    <script>
-      // Initialize scroll reveal on page load and navigation
-      function initScrollReveal() {
-        const revealElements = document.querySelectorAll('.reveal');
-        
-        const observerOptions = {
-          threshold: 0.1,
-          rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('active');
-              observer.unobserve(entry.target);
-            }
-          });
-        }, observerOptions);
-
-        revealElements.forEach((element) => {
-          observer.observe(element);
-        });
-      }
-
-      // Initialize on page load
-      document.addEventListener('DOMContentLoaded', initScrollReveal);
-
-      // Reinitialize on Astro navigation (ViewTransitions)
-      document.addEventListener('astro:after-swap', initScrollReveal);
-    </script>
   </head>
-  <body class="bg-slate-900 text-slate-50 min-h-screen flex flex-col">
+  <body class="bg-canvas text-ink min-h-screen flex flex-col antialiased">
     <Navbar currentPath={currentPath} />
-    <main class="flex-1 pt-16">
+    <main class="flex-1 pt-14">
       <slot />
     </main>
     <Footer />
