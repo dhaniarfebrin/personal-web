@@ -3,11 +3,11 @@ const techStack = ['React', 'Astro', 'TypeScript', 'Tailwind CSS'];
 ---
 
 <section class="bg-canvas pt-section pb-section px-6">
-  <div class="max-w-content mx-auto w-full grid md:grid-cols-2 gap-16 items-start">
-
+  <div
+    class="max-w-content mx-auto w-full grid md:grid-cols-2 gap-16 items-start"
+  >
     {/* Left Column — Text Content */}
     <div class="space-y-8">
-
       {/* Badge / Eyebrow */}
       <div>
         <span class="text-sm text-mute">[ portfolio ]</span>
@@ -20,18 +20,21 @@ const techStack = ['React', 'Astro', 'TypeScript', 'Tailwind CSS'];
 
       {/* Subtitle */}
       <p class="text-body-md text-body leading-relaxed">
-        Frontend developer specializing in building fast, accessible, and modern user interfaces.
-        Currently focused on crafting exceptional digital experiences with cutting-edge web technologies.
+        Frontend developer specializing in building fast, accessible, and modern
+        user interfaces. Currently focused on crafting exceptional digital
+        experiences with cutting-edge web technologies.
       </p>
 
       {/* Tech Stack — list-row style */}
       <div class="space-y-0 border-t border-hairline">
-        {techStack.map((tech) => (
-          <div class="flex items-center gap-3 py-2 border-b border-hairline">
-            <span class="text-sm text-mute">[+]</span>
-            <span class="text-sm text-ink">{tech}</span>
-          </div>
-        ))}
+        {
+          techStack.map((tech) => (
+            <div class="flex items-center gap-3 py-2 border-b border-hairline">
+              <span class="text-sm text-mute">[+]</span>
+              <span class="text-sm text-ink">{tech}</span>
+            </div>
+          ))
+        }
       </div>
 
       {/* CTA */}
@@ -53,11 +56,19 @@ const techStack = ['React', 'Astro', 'TypeScript', 'Tailwind CSS'];
 
     {/* Right Column — TUI Mockup */}
     <div class="hidden md:block">
-      <div class="bg-surface-dark rounded-none p-8 font-mono">
-
+      {
+        /* Option A: TUI stays dark in both modes. In dark mode a hairline border
+          makes it visible against the matching-dark canvas background. */
+      }
+      <div
+        class="bg-surface-dark rounded-none p-8 font-mono border border-transparent dark:border-hairline-strong"
+      >
         {/* ASCII Wordmark */}
-        <div class="text-canvas text-xs leading-tight mb-8 select-none overflow-x-auto">
-          <pre class="text-canvas opacity-90">
+        <div
+          class="text-canvas text-xs leading-tight mb-8 select-none overflow-x-auto"
+        >
+          <pre
+            class="text-canvas dark:text-[#fdfcfc] opacity-90">
  ██████╗ ███████╗
  ██╔══██╗██╔════╝
  ██║  ██║█████╗
@@ -71,9 +82,10 @@ const techStack = ['React', 'Astro', 'TypeScript', 'Tailwind CSS'];
 
         {/* TUI Prompt Row */}
         <div class="bg-surface-dark-elevated rounded-sm px-3 py-2 mb-6">
-          <p class="text-canvas text-sm">
+          <p class="text-canvas dark:text-[#fdfcfc] text-sm">
             <span class="text-ash">|</span> Build portfolio
-            <span class="text-ash ml-2">Claude Sonnet &nbsp; React + Astro</span>
+            <span class="text-ash ml-2">Claude Sonnet &nbsp; React + Astro</span
+            >
           </p>
         </div>
 
@@ -99,9 +111,7 @@ const techStack = ['React', 'Astro', 'TypeScript', 'Tailwind CSS'];
             [ tab ] switch &nbsp;&nbsp; [ ctrl-p ] commands
           </p>
         </div>
-
       </div>
     </div>
-
   </div>
 </section>

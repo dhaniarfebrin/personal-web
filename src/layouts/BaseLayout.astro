@@ -17,6 +17,7 @@ const { title, currentPath = '/' } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+
     <!-- JetBrains Mono from Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -24,12 +25,67 @@ const { title, currentPath = '/' } = Astro.props;
       href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
-    <style>
+
+    <!-- CSS Design Tokens: Light and Dark Mode variables -->
+    <style is:global>
+      :root {
+        --color-canvas: #fdfcfc;
+        --color-ink: #201d1d;
+        --color-ink-deep: #0f0000;
+        --color-charcoal: #302c2c;
+        --color-body: #424245;
+        --color-mute: #646262;
+        --color-stone: #6e6e73;
+        --color-ash: #9a9898;
+        --color-surface-soft: #f8f7f7;
+        --color-surface-card: #f1eeee;
+        --color-hairline: rgba(15, 0, 0, 0.12);
+        --color-hairline-strong: #646262;
+      }
+
+      .dark {
+        --color-canvas: #201d1d;
+        --color-ink: #fdfcfc;
+        --color-ink-deep: #ffffff;
+        --color-charcoal: #e8e4e4;
+        --color-body: #d1d1d1;
+        --color-mute: #9a9898;
+        --color-stone: #8e8e93;
+        --color-ash: #6e6e73;
+        --color-surface-soft: #302c2c;
+        --color-surface-card: #3d3838;
+        --color-hairline: rgba(253, 252, 252, 0.12);
+        --color-hairline-strong: #9a9898;
+      }
+
       * {
-        font-family: 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+        font-family: 'JetBrains Mono', 'IBM Plex Mono', ui-monospace,
+          SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+          'Courier New', monospace;
       }
     </style>
+
+    <!--
+      Anti-FOUC: must run synchronously before the page renders.
+      1. Check localStorage for a saved preference.
+      2. Fall back to OS preference (prefers-color-scheme).
+      3. Apply .dark to <html> immediately if needed.
+    -->
+    <script is:inline>
+      (function () {
+        const saved = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const isDark =
+          saved === 'dark' || (saved === null && prefersDark) || (saved === 'system' && prefersDark);
+        if (isDark) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      })();
+    </script>
   </head>
+
   <body class="bg-canvas text-ink min-h-screen flex flex-col antialiased">
     <Navbar currentPath={currentPath} />
     <main class="flex-1 pt-14">
