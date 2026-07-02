@@ -148,22 +148,15 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
-"mastering-tailwind-css.md": {
-	id: "mastering-tailwind-css.md";
-  slug: "mastering-tailwind-css";
+"mobile-dev-culture-shock.md": {
+	id: "mobile-dev-culture-shock.md";
+  slug: "mobile-dev-culture-shock";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 };
 "projects": {
-"ecommerce-platform.md": {
-	id: "ecommerce-platform.md";
-  slug: "ecommerce-platform";
-  body: string;
-  collection: "projects";
-  data: InferEntrySchema<"projects">
-} & { render(): Render[".md"] };
 "portfolio-website.md": {
 	id: "portfolio-website.md";
   slug: "portfolio-website";
