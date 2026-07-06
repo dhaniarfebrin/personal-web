@@ -6,7 +6,11 @@ const allPosts = await getCollection('blog');
 const posts = allPosts.sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
 ---
 
-<BaseLayout title="Blog - Dhaniar Febrin" currentPath="/blog">
+<BaseLayout
+  title="Blog - Dhaniar Febrin"
+  description="Articles about frontend development, web design, and tech tips by Dhaniar Febrin."
+  currentPath="/blog"
+>
   <div class="bg-canvas py-section px-6">
     <div class="max-w-content mx-auto">
 
