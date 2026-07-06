@@ -4,10 +4,16 @@ import Footer from '../components/Footer.astro';
 
 interface Props {
   title: string;
+  description: string;
+  image?: string;
+  type?: 'website' | 'article';
   currentPath?: string;
 }
 
-const { title, currentPath = '/' } = Astro.props;
+const { title, description, image, type = 'website', currentPath = '/' } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const resolvedImage = image ? new URL(image, Astro.site).toString() : undefined;
 ---
 
 <!doctype html>
@@ -17,6 +23,24 @@ const { title, currentPath = '/' } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+
+    <!-- SEO -->
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content="Dhaniar Febrin" />
+    {resolvedImage && <meta property="og:image" content={resolvedImage} />}
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content={resolvedImage ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {resolvedImage && <meta name="twitter:image" content={resolvedImage} />}
 
     <!-- JetBrains Mono from Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

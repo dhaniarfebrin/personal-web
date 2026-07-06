@@ -14,7 +14,12 @@ const { project } = Astro.props;
 const { Content } = await project.render();
 ---
 
-<BaseLayout title={`${project.data.title} - Projects`} currentPath="/projects">
+<BaseLayout
+  title={`${project.data.title} - Projects`}
+  description={project.data.description}
+  image={project.data.image}
+  currentPath="/projects"
+>
   <article class="bg-canvas py-section px-6">
     <div class="max-w-content mx-auto">
 

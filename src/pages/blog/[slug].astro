@@ -15,7 +15,13 @@ const { Content } = await post.render();
 const readTime = Math.ceil(post.body.split(' ').length / 200);
 ---
 
-<BaseLayout title={`${post.data.title} - Blog`} currentPath="/blog">
+<BaseLayout
+  title={`${post.data.title} - Blog`}
+  description={post.data.description}
+  image={post.data.image}
+  type="article"
+  currentPath="/blog"
+>
   <article class="bg-canvas py-section px-6">
     <div class="max-w-content mx-auto">
 
