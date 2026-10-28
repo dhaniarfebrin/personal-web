@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import { readTime } from '../../utils/readTime';
 
 const allPosts = await getCollection('blog');
 const posts = allPosts.sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
@@ -31,7 +32,6 @@ const posts = allPosts.sort((a, b) => b.data.publishedAt.getTime() - a.data.publ
       ) : (
         <div>
           {posts.map((post) => {
-            const readTime = Math.ceil(post.body.split(' ').length / 200);
             return (
               <div class="group relative py-5 border-b border-hairline hover:bg-surface-soft transition-colors duration-150 -mx-3 px-3">
                 <div class="flex items-start gap-3">
@@ -61,7 +61,7 @@ const posts = allPosts.sort((a, b) => b.data.publishedAt.getTime() - a.data.publ
                         })}
                       </time>
                       <span class="text-xs text-mute">·</span>
-                      <span class="text-xs text-mute">{readTime} min read</span>
+                      <span class="text-xs text-mute">{readTime(post.body)} min read</span>
                       {post.data.tags && post.data.tags.length > 0 && (
                         <>
                           <span class="text-xs text-mute">·</span>
