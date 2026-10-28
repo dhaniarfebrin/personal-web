@@ -87,6 +87,13 @@ const resolvedImage = image ? new URL(image, Astro.site).toString() : undefined;
           SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
           'Courier New', monospace;
       }
+
+      /* Keep tall phone screenshots from filling the whole page */
+      .prose img {
+        max-height: 70vh;
+        width: auto;
+        margin-inline: auto;
+      }
     </style>
 
     <!--
