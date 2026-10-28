@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import { readTime } from '../../utils/readTime';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -12,7 +13,6 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await post.render();
-const readTime = Math.ceil(post.body.split(' ').length / 200);
 ---
 
 <BaseLayout
@@ -48,7 +48,7 @@ const readTime = Math.ceil(post.body.split(' ').length / 200);
             })}
           </time>
           <span>·</span>
-          <span>{readTime} min read</span>
+          <span>{readTime(post.body)} min read</span>
           {post.data.tags && post.data.tags.length > 0 && (
             <>
               <span>·</span>
