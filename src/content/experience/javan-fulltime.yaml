@@ -1,0 +1,12 @@
+org: PT Javan Cipta Solusi
+role: Front-End Developer
+kind: work
+start: "2025-01"
+location: Sleman, Yogyakarta
+highlights:
+  - Build the front end of a large-scale platform for a major Indonesian private internet network provider.
+  - Built a BPMN process editor and a complex dynamic form builder.
+  - Set up and built a micro-frontend architecture so many developers can work in separate repos, which makes the project easier to maintain.
+  - Maintain Javan's in-house UI component library.
+  - Co-authored front-end coding standards with the tech lead and track code quality with SonarCloud.
+technologies: [React, TypeScript, Tailwind CSS, bpmn-js, Module Federation, Vite, SonarCloud]

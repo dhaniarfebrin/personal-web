@@ -1,0 +1,9 @@
+org: ABP Startup Incubator
+role: Talent Backend Developer
+kind: program
+start: "2023-05"
+end: "2024-03"
+highlights:
+  - Designed the database and REST API for a small business's product catalogue site with a CMS.
+  - Validated all input on the server side.
+technologies: [Node.js, Express, PostgreSQL]

@@ -1,0 +1,11 @@
+org: PT Javan Cipta Solusi
+role: Front-End Developer Intern
+kind: internship
+start: "2024-07"
+end: "2025-01"
+location: Sleman, Yogyakarta
+highlights:
+  - Automated internal business processes on Camunda, building the front-end task flows.
+  - Presented at an internal Camunda Tasklist workshop.
+  - Started work on the client platform and the component library.
+technologies: [Camunda, React, TypeScript]
