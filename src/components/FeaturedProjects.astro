@@ -2,7 +2,10 @@
 import { getCollection } from 'astro:content';
 
 const allProjects = await getCollection('projects');
-const featuredProjects = allProjects.slice(0, 3);
+const featuredProjects = allProjects
+  .filter((p) => p.data.featured)
+  .sort((a, b) => a.slug.localeCompare(b.slug))
+  .slice(0, 3);
 ---
 
 <section
