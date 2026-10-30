@@ -25,7 +25,7 @@ declare global {
 function toHistory(turns: Turn[]): Msg[] {
   const msgs: Msg[] = [];
   for (const t of turns) {
-    const content = [t.text, ...t.ui.map(summarizeUi)].join('\n').trim().slice(0, 1500);
+    const content = [t.text, ...t.ui.map(summarizeUi)].filter(Boolean).join('\n').trim().slice(0, 1500);
     if (content) msgs.push({ role: 'user', content: t.q }, { role: 'assistant', content });
   }
   return msgs.slice(-6);

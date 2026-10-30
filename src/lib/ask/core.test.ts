@@ -97,8 +97,20 @@ describe('buildTools / buildSystem', () => {
     expect(J(buildTools(ctx))).toBe(J(buildTools(ctx)));
   });
   test('context comes first in system prompt', () => expect(buildSystem(ctx).startsWith('<context>')).toBe(true));
-  test('summarizeUi', () => {
-    const ui = validateUi('show_projects', J({ slugs: ['alpha'], note: 'n' }), ctx)!;
-    expect(summarizeUi(ui)).toBe('[ui: project_cards alpha]');
+  test('summarizeUi is natural text, never bracket syntax, and empty for suggestions', () => {
+    const v = (n: string, o: object) => summarizeUi(validateUi(n, J(o), ctx)!);
+    const out = [
+      v('show_projects', { slugs: ['alpha', 'beta'], note: 'n' }),
+      v('show_timeline', { title: 'T', items: [{ when: '2025', label: 'L', detail: 'D', source: 'experience:job' }, { when: '2025', label: 'L', detail: 'D', source: 'project:alpha' }] }),
+      v('show_code', { source: 'project:alpha', language: 'ts', code: 'export function hello() {\n return 1;\n}', caption: 'c' }),
+    ];
+    expect(out).toEqual(['(Showed project cards: Alpha, Beta.)', '(Showed a timeline: T.)', '(Showed a code snippet from Alpha.)']);
+    expect(out.join('')).not.toContain('[ui');
+    expect(v('suggest_questions', { questions: ['a'] })).toBe('');
+  });
+  test('system prompt tells the model about present end and no UI markers', () => {
+    const s = buildSystem(ctx);
+    expect(s).toContain("end 'present'");
+    expect(s).toContain('Never write UI markers');
   });
 });

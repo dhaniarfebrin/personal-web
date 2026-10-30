@@ -11,7 +11,7 @@ export async function GET() {
   const body = {
     projects: projects.map(({ slug, data, body }) => ({ slug, data, body })),
     blog: blog.map(({ slug, data, body }) => ({ slug, data, body })),
-    experience: experience.map(({ id, data }) => ({ id, data })),
+    experience: experience.map(({ id, data }) => ({ id, data: { ...data, end: data.end || 'present' } })),
     techStack,
   };
   return new Response(JSON.stringify(body), { headers: { 'Content-Type': 'application/json' } });
