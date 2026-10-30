@@ -2,7 +2,6 @@
 title: "From React Web to React Native: The Culture Shock"
 description: "My first experience building a mobile app as a frontend web developer and the unexpected challenges I faced along the way."
 publishedAt: 2024-05-15
-image: "/images/blog-mobile-dev.jpg"
 tags: ["react native", "mobile development", "career", "culture shock"]
 ---
 

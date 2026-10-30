@@ -2,7 +2,6 @@
 title: "Getting Started with Astro"
 description: "Learn how to build fast, modern websites with Astro and understand why it's the future of web development."
 publishedAt: 2024-05-01
-image: "/images/blog-astro.jpg"
 tags: ["astro", "web development", "jamstack"]
 ---
 
