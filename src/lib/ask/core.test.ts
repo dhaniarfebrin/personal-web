@@ -102,4 +102,10 @@ describe('buildTools / buildSystem', () => {
     expect(s).toContain("end 'present'");
     expect(s).toContain('Never write UI markers');
   });
+  test('system prompt requires text and suggest_questions on every answer', () => {
+    const s = buildSystem(ctx);
+    expect(s).toContain('never reply with tools only');
+    expect(s).toContain('End EVERY answer');
+    expect(s).toContain('always finish with suggest_questions');
+  });
 });

@@ -9,7 +9,7 @@ type Turn = { q: string; text: string; ui: UiEvent[]; error?: string };
 
 const EXAMPLES = [
   'What has Dhaniar worked on professionally?',
-  'Show me his projects',
+  "Show me Dhaniar's projects",
   'How was BPMN AI Studio built?',
 ];
 const SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | undefined;
@@ -161,9 +161,10 @@ export default function AskApp() {
                   <span class="text-mute">[+]</span> {t.text}
                 </p>
               )}
-              {t.ui.map((u, j) => (
-                <div key={j}>{renderUi(u, pick)}</div>
-              ))}
+              {t.ui.map((u, j) =>
+                // only the latest answer keeps clickable follow-ups
+                u.name === 'suggestions' && i !== turns.length - 1 ? null : <div key={j}>{renderUi(u, pick)}</div>,
+              )}
               {busy && i === turns.length - 1 && !t.text && t.ui.length === 0 && !t.error && <p class="text-mute">[...] thinking</p>}
               {t.error && (
                 <p role="alert" class="mt-2 text-sm text-ink border border-danger px-3 py-2">

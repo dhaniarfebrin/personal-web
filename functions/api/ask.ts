@@ -11,7 +11,7 @@ type Env = {
 
 const ERR = 'Assistant unavailable, try again later.';
 const MAX_BODY = 8 * 1024;
-const MAX_UI = 3;
+const MAX_UI = 3; // content components; the suggestions chip row is extra
 const enc = new TextEncoder();
 
 const fail = (status: number, message: string) =>
@@ -157,9 +157,11 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env, waitUnti
         const uis = calls
           .filter(Boolean)
           .map((c) => validateUi(c.name, c.args, ctx))
-          .filter((u): u is UiEvent => u !== null)
-          .slice(0, MAX_UI);
-        for (const u of uis) await emit(u);
+          .filter((u): u is UiEvent => u !== null);
+        // suggestions always last, so the content cap never drops them
+        const content = uis.filter((u) => u.name !== 'suggestions').slice(0, MAX_UI);
+        const suggestions = uis.find((u) => u.name === 'suggestions');
+        for (const u of suggestions ? [...content, suggestions] : content) await emit(u);
       }
       await emit({ type: 'done' });
     } catch (e) {
