@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
-import { summarizeUi, type Msg, type UiEvent } from '../../lib/ask/core';
+import { type Msg, type UiEvent } from '../../lib/ask/core';
 import ProjectCards from './ProjectCards';
 import Timeline from './Timeline';
 import CodeBlock from './CodeBlock';
@@ -21,11 +21,12 @@ declare global {
   }
 }
 
-// Last 6 messages, UI components summarised as text. Turns that produced nothing are skipped.
+// Last 6 messages, answer text only (no notes about components, so the model has nothing to imitate).
+// Turns without text are skipped to keep user/assistant pairs valid.
 function toHistory(turns: Turn[]): Msg[] {
   const msgs: Msg[] = [];
   for (const t of turns) {
-    const content = [t.text, ...t.ui.map(summarizeUi)].filter(Boolean).join('\n').trim().slice(0, 1500);
+    const content = t.text.trim().slice(0, 1500);
     if (content) msgs.push({ role: 'user', content: t.q }, { role: 'assistant', content });
   }
   return msgs.slice(-6);
