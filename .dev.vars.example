@@ -1,0 +1,6 @@
+# Copy to .dev.vars for `wrangler pages dev`. Never commit .dev.vars.
+DEEPSEEK_API_KEY=
+# Cloudflare's official Turnstile test secret (always passes, only accepts the dummy token)
+TURNSTILE_SECRET=1x0000000000000000000000000000000AA
+LLM_MODEL=
+LLM_BASE_URL=

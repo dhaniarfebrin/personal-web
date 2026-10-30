@@ -23,7 +23,8 @@ Personal portfolio and blog built as a static site with **Astro** and **Tailwind
 | Styling | [Tailwind CSS](https://tailwindcss.com) 3 + `@tailwindcss/typography` |
 | SEO | `@astrojs/sitemap` |
 | Package manager | [Bun](https://bun.sh) (`bun.lock`) |
-| Hosting | Cloudflare Pages |
+| UI island | [Preact](https://preact.dev) via `@astrojs/preact` (`/ask` only) |
+| Hosting | Cloudflare Pages (+ Pages Functions for `/api/ask`) |
 
 ## Project Structure
 
@@ -104,6 +105,31 @@ Project details in Markdown...
 
 Frontmatter that doesn't match `src/content/config.ts` fails the build.
 
+## Ask me
+
+`/ask` lets visitors ask about my experience, projects and writing. A Preact island (`src/components/ask/`) calls a Cloudflare Pages Function (`functions/api/ask.ts`), which verifies Turnstile, asks DeepSeek (OpenAI-compatible API, `fetch` only, no SDK) and streams NDJSON back. The model can only pick one of four UI components (project cards, timeline, code, suggested questions); `src/lib/ask/core.ts` validates every choice and fills the props from site content. The content the model sees is built at build time into `dist/ask-context.json` (`src/pages/ask-context.json.ts`).
+
+Set these in the Cloudflare Pages dashboard, for both **Production and Preview**:
+
+| Name | Type | Notes |
+|------|------|-------|
+| `DEEPSEEK_API_KEY` | secret | DeepSeek API key |
+| `TURNSTILE_SECRET` | secret | Turnstile widget secret for the site's domain |
+| `LLM_MODEL` | variable | optional, defaults to `deepseek-flash` |
+| `LLM_BASE_URL` | variable | optional, defaults to `https://api.deepseek.com` |
+| `PUBLIC_TURNSTILE_SITE_KEY` | build variable | Turnstile site key, inlined into the client at build time |
+
+Local development (the Function needs `wrangler`, `astro dev` does not serve it):
+
+```bash
+cp .dev.vars.example .dev.vars   # fill DEEPSEEK_API_KEY; the example uses Cloudflare's Turnstile test secret
+cp .env.example .env             # Turnstile test site key
+bun run build && bunx wrangler pages dev dist
+bun test src/lib/ask/core.test.ts
+```
+
+There is no per-IP rate limit; if the endpoint is abused, add a Workers rate-limit binding or a KV counter.
+
 ## Customization
 
 - **Colors**: edit the CSS variables (light and dark sets) in `src/layouts/BaseLayout.astro`. `tailwind.config.mjs` maps them to classes like `bg-canvas`, `text-ink`, `border-hairline`.
@@ -111,4 +137,4 @@ Frontmatter that doesn't match `src/content/config.ts` fails the build.
 
 ## Deployment
 
-Deployed on Cloudflare Pages as a static site: build command `bun run build`, output directory `dist`. The `site` value in `astro.config.mjs` (`https://dhaniar.pages.dev`) is used for canonical URLs and the sitemap, so update it if the domain changes.
+Deployed on Cloudflare Pages through git integration (static site plus the `functions/` directory): build command `bun run build`, output directory `dist`. The `site` value in `astro.config.mjs` (`https://dhaniar.pages.dev`) is used for canonical URLs and the sitemap, so update it if the domain changes.
