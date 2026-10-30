@@ -68,6 +68,8 @@ export default {
             '--tw-prose-th-borders': 'var(--color-hairline)',
             '--tw-prose-td-borders': 'var(--color-hairline)',
             fontFamily: '"JetBrains Mono", IBM Plex Mono, ui-monospace, monospace',
+            fontSize: '17px',
+            lineHeight: '1.75',
             a: {
               fontWeight: '400',
               textDecoration: 'underline',
@@ -79,7 +81,9 @@ export default {
               padding: '2px 6px',
               borderRadius: '4px',
               fontWeight: '400',
+              fontSize: '0.8235em', // 14px dari basis 17px
             },
+            pre: { fontSize: '0.8235em' },
             'code::before': false,
             'code::after': false,
             'pre code': {

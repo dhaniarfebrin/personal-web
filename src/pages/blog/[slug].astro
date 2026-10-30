@@ -1,18 +1,21 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import TableOfContents from '../../components/TableOfContents.astro';
 import { readTime } from '../../utils/readTime';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog');
-  return posts.map((post) => ({
+  const posts = (await getCollection('blog')).sort(
+    (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf()
+  );
+  return posts.map((post, i) => ({
     params: { slug: post.slug },
-    props: { post },
+    props: { post, newer: posts[i - 1], older: posts[i + 1] },
   }));
 }
 
-const { post } = Astro.props;
-const { Content } = await post.render();
+const { post, newer, older } = Astro.props;
+const { Content, headings } = await post.render();
 ---
 
 <BaseLayout
@@ -20,6 +23,7 @@ const { Content } = await post.render();
   description={post.data.description}
   image={post.data.image}
   type="article"
+  publishedAt={post.data.publishedAt}
   currentPath="/blog"
 >
   <article class="bg-canvas py-section px-6">
@@ -34,7 +38,7 @@ const { Content } = await post.render();
 
       {/* Article Header */}
       <header class="pb-6 mb-8 border-b border-hairline">
-        <h1 class="text-[38px] font-bold text-ink leading-[1.5] mb-4">
+        <h1 class="text-[26px] md:text-[38px] font-bold text-ink leading-tight mb-4">
           {post.data.title}
         </h1>
 
@@ -66,14 +70,21 @@ const { Content } = await post.render();
           <img
             src={post.data.image}
             alt={post.data.title}
-            class="max-h-[70vh] w-auto mx-auto"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+            class="max-h-[40vh] md:max-h-[70vh] w-auto max-w-full mx-auto"
           />
         </figure>
       )}
 
       {/* Article Content */}
-      <div class="prose max-w-none">
-        <Content />
+      <TableOfContents headings={headings} variant="mobile" />
+      <div class="lg:flex lg:gap-8 lg:justify-between">
+        <div class="article-body prose min-w-0 max-w-[68ch] lg:flex-1">
+          <Content />
+        </div>
+        <TableOfContents headings={headings} variant="desktop" />
       </div>
 
       {/* Author attribution */}
@@ -81,13 +92,37 @@ const { Content } = await post.render();
         <p class="text-xs text-mute">--- Written by Dhaniar Febrin · Frontend Developer</p>
       </footer>
 
+      {/* Prev / next */}
+      {(newer || older) && (
+        <nav class="mt-6 flex justify-between gap-6 text-sm" aria-label="Artikel lain">
+          {older ? (
+            <a href={`/blog/${older.slug}`} class="text-ink underline hover:opacity-70 transition-opacity">
+              ← {older.data.title}
+            </a>
+          ) : <span />}
+          {newer ? (
+            <a href={`/blog/${newer.slug}`} class="text-ink underline hover:opacity-70 transition-opacity text-right">
+              {newer.data.title} →
+            </a>
+          ) : <span />}
+        </nav>
+      )}
+
       {/* Back navigation */}
-      <nav class="mt-6">
-        <a href="/blog" class="text-sm text-ink underline hover:opacity-70 transition-opacity">
+      <nav class="mt-6 flex justify-between gap-6 text-sm">
+        <a href="/blog" class="text-ink underline hover:opacity-70 transition-opacity">
           ← Back to all articles
         </a>
+        <a href="#top" class="text-mute hover:text-ink transition-colors">[ ↑ top ]</a>
       </nav>
 
     </div>
   </article>
 </BaseLayout>
+
+<style>
+  .article-body :global(h2),
+  .article-body :global(h3) {
+    scroll-margin-top: 5rem;
+  }
+</style>

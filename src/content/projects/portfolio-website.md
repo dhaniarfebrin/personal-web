@@ -5,7 +5,6 @@ featured: true
 technologies: ["Astro", "TypeScript", "Tailwind CSS", "MDX", "Bun"]
 liveUrl: "https://example.com"
 githubUrl: "https://github.com/example/portfolio"
-image: "/images/projects-portfolio.jpg"
 ---
 
 ## Project Overview

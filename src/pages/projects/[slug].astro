@@ -35,7 +35,7 @@ const { Content } = await project.render();
         {project.data.featured && (
           <p class="text-xs text-mute mb-2">[featured]</p>
         )}
-        <h1 class="text-[38px] font-bold text-ink leading-[1.5] mb-3">
+        <h1 class="text-[26px] md:text-[38px] font-bold text-ink leading-tight mb-3">
           {project.data.title}
         </h1>
         <p class="text-sm text-body leading-relaxed mb-6">
@@ -83,13 +83,15 @@ const { Content } = await project.render();
           <img
             src={project.data.image}
             alt={project.data.title}
-            class="max-h-[70vh] w-auto mx-auto"
+            loading="lazy"
+            decoding="async"
+            class="max-h-[40vh] md:max-h-[70vh] w-auto max-w-full mx-auto"
           />
         </figure>
       )}
 
       {/* Project Content */}
-      <div class="prose max-w-none">
+      <div class="prose max-w-[68ch]">
         <Content />
       </div>
 

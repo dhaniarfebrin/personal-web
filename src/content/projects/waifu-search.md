@@ -5,7 +5,6 @@ featured: true
 technologies: ["React Native", "TypeScript", "Tailwind CSS", "TanStack Query", "FlashList"]
 liveUrl: ""
 githubUrl: "https://github.com/dhaniarfebrin/waifu-search"
-image: "/images/projects-waifu-search.jpg"
 ---
 
 ## Project Overview
