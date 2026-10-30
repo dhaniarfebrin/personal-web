@@ -18,7 +18,7 @@ const navLinks = [
 <nav class="fixed top-0 left-0 right-0 z-50 bg-canvas border-b border-hairline">
   <div class="max-w-content mx-auto px-6 h-14 flex items-center justify-between">
     {/* ASCII Wordmark / Logo */}
-    <a href="/" class="text-ink font-bold text-sm tracking-tight hover:opacity-70 transition-opacity">
+    <a href="/" class="inline-flex items-center min-h-11 -ml-2 px-2 text-ink font-bold text-sm tracking-tight hover:opacity-70 transition-opacity">
       [ DF ]
     </a>
 
@@ -26,7 +26,7 @@ const navLinks = [
     <div class="flex items-center gap-4 md:gap-6">
       {/* Mobile menu: native <details>, no JS needed */}
       <details class="md:hidden group">
-        <summary class="list-none [&::-webkit-details-marker]:hidden cursor-pointer text-sm text-mute hover:text-ink transition-colors duration-150">
+        <summary class="flex items-center min-h-11 px-2 list-none [&::-webkit-details-marker]:hidden cursor-pointer text-sm text-mute hover:text-ink transition-colors duration-150">
           <span class="group-open:hidden">[ menu ]</span>
           <span class="hidden group-open:inline">[ x ]</span>
         </summary>
@@ -36,7 +36,7 @@ const navLinks = [
               <a
                 href={link.href}
                 onclick="this.closest('details').removeAttribute('open')"
-                class={`block py-2 text-sm ${
+                class={`flex items-center min-h-11 text-sm ${
                   currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))
                     ? 'text-ink font-bold'
                     : 'text-mute hover:text-ink'
@@ -54,7 +54,7 @@ const navLinks = [
           <li>
             <a
               href={link.href}
-              class={`text-sm transition-opacity duration-150 ${
+              class={`inline-flex items-center min-h-11 text-sm transition-opacity duration-150 ${
                 currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))
                   ? 'text-ink font-bold'
                   : 'text-mute hover:text-ink'
@@ -68,14 +68,6 @@ const navLinks = [
 
       {/* Theme Toggle */}
       <ThemeToggle />
-
-      {/* Resume Button — button-primary style */}
-      <a
-        href="#"
-        class="px-5 py-1 bg-ink text-canvas text-sm font-medium rounded-sm hover:bg-ink-deep transition-colors duration-150"
-      >
-        Resume
-      </a>
     </div>
   </div>
 </nav>
