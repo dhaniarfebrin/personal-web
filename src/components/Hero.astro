@@ -1,5 +1,7 @@
 ---
-const techStack = ['React', 'Astro', 'TypeScript', 'Tailwind CSS'];
+import { techStack } from '../data/techStack';
+
+const heroStack = techStack.slice(0, 5);
 ---
 
 <section class="bg-canvas pt-section pb-section px-6">
@@ -20,15 +22,16 @@ const techStack = ['React', 'Astro', 'TypeScript', 'Tailwind CSS'];
 
       {/* Subtitle */}
       <p class="text-body-md text-body leading-relaxed">
-        Frontend developer specializing in building fast, accessible, and modern
-        user interfaces. Currently focused on crafting exceptional digital
-        experiences with cutting-edge web technologies.
+        Frontend Developer based in Yogyakarta, Indonesia. I build front ends
+        for large-scale enterprise platforms with React and React Native,
+        turning complex workflows into structured interfaces: process editors,
+        dynamic forms, micro-frontends and shared UI component libraries.
       </p>
 
       {/* Tech Stack — list-row style */}
       <div class="space-y-0 border-t border-hairline">
         {
-          techStack.map((tech) => (
+          heroStack.map((tech) => (
             <div class="flex items-center gap-3 py-2 border-b border-hairline">
               <span class="text-sm text-mute">[+]</span>
               <span class="text-sm text-ink">{tech}</span>
@@ -41,13 +44,13 @@ const techStack = ['React', 'Astro', 'TypeScript', 'Tailwind CSS'];
       <div class="flex gap-3 flex-wrap">
         <a
           href="#projects"
-          class="px-5 py-2 bg-ink text-canvas text-sm font-medium rounded-sm hover:bg-ink-deep transition-colors duration-150"
+          class="inline-flex items-center min-h-11 px-5 bg-ink text-canvas text-sm font-medium rounded-sm hover:bg-ink-deep transition-colors duration-150"
         >
           View my work
         </a>
         <a
           href="#contact"
-          class="px-5 py-2 bg-canvas text-ink text-sm font-medium rounded-sm border border-hairline-strong hover:bg-surface-soft transition-colors duration-150"
+          class="inline-flex items-center min-h-11 px-5 bg-canvas text-ink text-sm font-medium rounded-sm border border-hairline-strong hover:bg-surface-soft transition-colors duration-150"
         >
           Get in touch
         </a>
@@ -83,32 +86,35 @@ const techStack = ['React', 'Astro', 'TypeScript', 'Tailwind CSS'];
         {/* TUI Prompt Row */}
         <div class="bg-surface-dark-elevated rounded-sm px-3 py-2 mb-6">
           <p class="text-canvas dark:text-[#ece8e6] text-sm">
-            <span class="dark:text-mute text-ash">|</span> Build portfolio
-            <span class="dark:text-mute text-ash ml-2">Claude Sonnet &nbsp; React + Astro</span
-            >
+            <span class="dark:text-mute text-ash">$</span> whoami
+            <span class="dark:text-mute text-ash ml-2">Frontend Developer</span>
           </p>
         </div>
 
-        {/* File list rows */}
+        {/* Status rows */}
         <div class="space-y-1 mb-6">
           <div class="flex items-center gap-2 text-xs dark:text-mute text-ash">
             <span class="text-success">[+]</span>
-            <span>Hero section redesigned</span>
+            <span>Yogyakarta, Indonesia</span>
           </div>
           <div class="flex items-center gap-2 text-xs dark:text-mute text-ash">
             <span class="text-success">[+]</span>
-            <span>Manpage-style typography</span>
+            <span>React, React Native, TypeScript</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs dark:text-mute text-ash">
+            <span class="text-success">[+]</span>
+            <span>BPMN editor, form builder, micro-frontends</span>
           </div>
           <div class="flex items-center gap-2 text-xs dark:text-mute text-ash">
             <span class="text-warning">[~]</span>
-            <span>Projects section in progress</span>
+            <span>Building LLM-powered products</span>
           </div>
         </div>
 
         {/* Keybinding hints */}
         <div class="border-t border-surface-dark-elevated pt-3">
           <p class="text-xs dark:text-mute text-ash">
-            [ tab ] switch &nbsp;&nbsp; [ ctrl-p ] commands
+            [ since 2020 ] building for the web
           </p>
         </div>
       </div>

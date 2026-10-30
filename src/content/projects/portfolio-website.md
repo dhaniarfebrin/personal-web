@@ -1,80 +1,54 @@
 ---
-title: "Portfolio Website with Astro"
-description: "A modern, performant portfolio website built with Astro, Tailwind CSS, and showcasing best practices in web development."
+title: "Personal Portfolio Website"
+description: "The site you are reading: a static portfolio and blog built with Astro, Tailwind CSS, and markdown content collections, with a terminal-style design, light/dark/system themes, and hosting on Cloudflare Pages."
 featured: true
-technologies: ["Astro", "TypeScript", "Tailwind CSS", "MDX", "Bun"]
-liveUrl: "https://example.com"
-githubUrl: "https://github.com/example/portfolio"
+technologies: ["Astro", "Tailwind CSS", "Markdown", "Shiki", "Bun", "Cloudflare Pages"]
+liveUrl: "https://dhaniar.pages.dev"
+githubUrl: "https://github.com/dhaniarfebrin/personal-web"
 ---
 
 ## Project Overview
 
-This portfolio website demonstrates modern web development practices using cutting-edge technologies. It serves as both a showcase of work and a reference implementation for others.
+This is my personal portfolio and blog. It is a static site: every page is built to plain HTML at build time, and the only JavaScript is a few small inline scripts (theme, code copy button, table of contents). I wanted a place for project write-ups and articles that is fast, easy to maintain, and written in markdown.
 
 ## Goals
 
-- Create a visually stunning portfolio
-- Demonstrate knowledge of latest web technologies
-- Build an accessible, performant website
-- Show best practices in code organization
+- Keep content in **markdown files**, validated at build time
+- Ship **static HTML** with very little JavaScript
+- Support **light, dark, and system** themes without a flash on load
+- Make long articles comfortable to read, including code samples
+
+## Key Features
+
+1. **Content collections**: blog posts and projects are markdown files. Frontmatter is validated with Zod schemas, so a missing field fails the build instead of breaking a page.
+2. **Theme toggle**: light, dark, or system. The choice is saved in `localStorage`, and an inline script applies it before the first paint, so there is no flash.
+3. **Table of contents**: long articles get a sticky contents list on desktop and a collapsible one on mobile. The current section is highlighted as you scroll.
+4. **Code blocks**: syntax highlighting with Shiki using a light and a dark theme that follow the site theme, plus a **copy button** on each block. Token colors are adjusted to pass the WCAG AA contrast ratio.
+5. **Estimated read time** on every blog post.
+6. **SEO basics**: meta description, canonical URL, Open Graph and Twitter Card tags, a generated sitemap, and `robots.txt`.
+7. **Responsive layout** with a mobile navigation menu and touch targets of at least 44px.
 
 ## Architecture
 
 ### Technology Stack
-- **Astro**: For static site generation with zero JavaScript by default
-- **TypeScript**: For type-safe component development
-- **Tailwind CSS**: For styling with utility classes
-- **MDX**: For rich, interactive content in markdown
-- **Bun**: Fast JavaScript runtime and package manager
+- **Astro 4** with static output: pages and content collections
+- **Tailwind CSS 3** with `@tailwindcss/typography`: styling, mapped to CSS variables for the color tokens
+- **Markdown**: all posts and project pages (no MDX)
+- **Shiki**: build-time syntax highlighting with dual themes
+- **@astrojs/sitemap**: sitemap generation
+- **Bun**: package manager
+- **Cloudflare Pages**: static hosting
 
-### Features
+### Design
+The visual style follows a terminal look: one monospace font (JetBrains Mono), ASCII markers such as `[+]` and `[-]`, a warm cream canvas in light mode, and 1px hairline borders. The colors are CSS variables defined in the base layout, so light and dark themes only swap the variable values.
 
-1. **Content Collections**: Organized blog posts and project showcase
-2. **Dark Mode**: Exclusive dark theme with purple accents
-3. **Performance**: 100/100 Lighthouse scores
-4. **Accessibility**: WCAG 2.1 AA compliant
-5. **SEO Optimized**: Proper meta tags and semantic HTML
+## Interesting Technical Decisions
 
-## Design System
+### Almost no client-side JavaScript
+Astro renders everything at build time. The client only runs small scripts for the theme, the copy buttons, and the table of contents highlight (an `IntersectionObserver`). There is no UI framework on the page.
 
-The portfolio uses a carefully crafted color palette:
-- **Background**: Dark navy slate
-- **Accents**: Vibrant purple
-- **Text**: Off-white for readability
-- **Borders**: Subtle slate tones
+### Theme before paint
+A tiny inline script in the `<head>` reads the saved theme (or the system preference) and sets the class on `<html>` before the page renders. The `theme-color` meta tag is kept in sync with the effective theme.
 
-## Key Features
-
-### Blog Section
-- Markdown-based articles with syntax highlighting
-- Reading time estimates
-- Tag-based categorization
-- Social sharing capabilities
-
-### Projects Section
-- Rich project descriptions
-- Technology showcase
-- Live demo and GitHub links
-- Project statistics
-
-### Performance Metrics
-- **Build Time**: < 2 seconds
-- **Page Load**: < 1 second
-- **Lighthouse**: 100/100
-- **Bundle Size**: Minimal JavaScript
-
-## Development Experience
-
-Built with developer experience in mind:
-- Type-safe components
-- Clear file organization
-- Reusable utility functions
-- Comprehensive documentation
-
-## Future Enhancements
-
-Planned improvements:
-- RSS feed for blog posts
-- Email newsletter subscription
-- Comments system
-- Analytics integration
+### Content validation at build time
+The Zod schemas in `src/content/config.ts` define what a blog post and a project need. Adding content is just adding a markdown file, and the build tells me if the frontmatter is wrong.

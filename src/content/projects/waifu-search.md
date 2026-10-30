@@ -1,7 +1,7 @@
 ---
 title: "Waifu Search Mobile App"
 description: "A visually pleasing React Native mobile application for discovering anime images with an infinite scrolling, Pinterest-style masonry layout."
-featured: true
+featured: false
 technologies: ["React Native", "TypeScript", "Tailwind CSS", "TanStack Query", "FlashList"]
 liveUrl: ""
 githubUrl: "https://github.com/dhaniarfebrin/waifu-search"

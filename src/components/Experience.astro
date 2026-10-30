@@ -1,0 +1,88 @@
+---
+import { getCollection } from 'astro:content';
+
+const entries = (await getCollection('experience')).map((e) => e.data);
+
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const fmt = (ym: string) => `${months[Number(ym.slice(5)) - 1]} ${ym.slice(0, 4)}`;
+const range = (start: string, end: string | undefined, yearOnly = false) =>
+  yearOnly
+    ? `${start.slice(0, 4)} – ${end?.slice(0, 4) ?? 'Present'}`
+    : `${fmt(start)} – ${end ? fmt(end) : 'Present'}`;
+
+// Newest first, then group roles by org in order of first appearance.
+const work = entries
+  .filter((e) => e.kind !== 'education')
+  .sort((a, b) => b.start.localeCompare(a.start));
+const groups = [...new Set(work.map((e) => e.org))].map((org) => ({
+  org,
+  roles: work.filter((e) => e.org === org),
+}));
+const education = entries
+  .filter((e) => e.kind === 'education')
+  .sort((a, b) => b.start.localeCompare(a.start));
+---
+
+<section id="experience" class="bg-canvas border-t border-hairline py-section px-6">
+  <div class="max-w-content mx-auto">
+    {/* Section Header */}
+    <div class="pb-3 mb-8 border-b border-hairline">
+      <h2 class="text-heading-md text-ink">Experience</h2>
+    </div>
+
+    <ol>
+      {groups.map(({ org, roles }) => (
+        <li class="py-5 border-b border-hairline" data-experience-group>
+          <div class="flex items-start gap-3">
+            <span class="text-sm text-mute mt-0.5 shrink-0">[+]</span>
+            <div class="flex-1 min-w-0 space-y-5">
+              <h3 class="text-sm font-bold text-ink">{org}</h3>
+              <ol class="space-y-5">
+                {roles.map((r) => (
+                  <li data-experience-entry>
+                    <div class="flex items-baseline justify-between gap-x-4 gap-y-1 flex-wrap">
+                      <p class="text-sm text-ink">{r.role}</p>
+                      <p class="text-xs text-mute">
+                        {range(r.start, r.end)}{r.location && ` · ${r.location}`}
+                      </p>
+                    </div>
+                    {r.summary && <p class="text-sm text-body leading-relaxed mt-2">{r.summary}</p>}
+                    {r.highlights.length > 0 && (
+                      <ul class="mt-2 space-y-1">
+                        {r.highlights.map((h) => (
+                          <li class="flex gap-2 text-sm text-body leading-relaxed">
+                            <span class="text-mute shrink-0">-</span>
+                            <span>{h}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    {r.technologies.length > 0 && (
+                      <p class="text-xs text-mute mt-2">{r.technologies.join(' · ')}</p>
+                    )}
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
+        </li>
+      ))}
+    </ol>
+
+    {/* Education */}
+    <h3 class="text-sm font-bold text-ink mt-10 mb-4">Education</h3>
+    <ol class="border-t border-hairline">
+      {education.map((e) => (
+        <li
+          class="flex items-baseline justify-between gap-x-4 gap-y-1 flex-wrap py-2 border-b border-hairline"
+          data-education-entry
+        >
+          <p class="text-sm text-ink">
+            <span class="text-mute">[+]</span> {e.org} — {e.role}
+          </p>
+          <p class="text-xs text-mute">{range(e.start, e.end, true)}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

@@ -10,54 +10,30 @@
       <h2 class="text-heading-md text-ink">Contact</h2>
     </div>
 
-    <div class="grid md:grid-cols-2 gap-12">
-      {/* Left — Copy */}
+    <div class="max-w-xl">
       <div class="space-y-4">
         <p class="text-sm text-body leading-relaxed">
           My inbox is always open. Whether you have a question, a project idea, or just
           want to say hi — I'll get back to you.
         </p>
-        <a
-          href="mailto:dhaniarfebrinwahyudi@gmail.com"
-          class="inline-block text-sm text-ink underline hover:opacity-70 transition-opacity"
-        >
-          dhaniarfebrinwahyudi@gmail.com
-        </a>
+        <ul class="list-none p-0 m-0 flex flex-col">
+          <li>
+            <a href="mailto:dhaniarfebrinwahyudi@gmail.com" class="inline-flex items-center min-h-11 text-sm text-ink underline hover:opacity-70 transition-opacity">
+              dhaniarfebrinwahyudi@gmail.com
+            </a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/in/dhaniar" target="_blank" rel="noopener noreferrer" class="inline-flex items-center min-h-11 text-sm text-ink underline hover:opacity-70 transition-opacity">
+              LinkedIn
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/dhaniarfebrin" target="_blank" rel="noopener noreferrer" class="inline-flex items-center min-h-11 text-sm text-ink underline hover:opacity-70 transition-opacity">
+              GitHub
+            </a>
+          </li>
+        </ul>
       </div>
-
-      {/* Right — Simple Form */}
-      <form class="space-y-4" onsubmit="event.preventDefault()">
-        <div>
-          <label class="block text-xs text-mute mb-1">Name</label>
-          <input
-            type="text"
-            placeholder="Your name"
-            class="w-full bg-surface-soft text-ink placeholder:text-mute text-sm px-3 py-2 border border-hairline rounded-sm focus:outline-none focus:border-ink focus:bg-canvas transition-colors duration-150"
-          />
-        </div>
-        <div>
-          <label class="block text-xs text-mute mb-1">Email</label>
-          <input
-            type="email"
-            placeholder="your@email.com"
-            class="w-full bg-surface-soft text-ink placeholder:text-mute text-sm px-3 py-2 border border-hairline rounded-sm focus:outline-none focus:border-ink focus:bg-canvas transition-colors duration-150"
-          />
-        </div>
-        <div>
-          <label class="block text-xs text-mute mb-1">Message</label>
-          <textarea
-            rows="4"
-            placeholder="What problem are you trying to solve?"
-            class="w-full bg-surface-soft text-ink placeholder:text-mute text-sm px-3 py-3 border border-hairline rounded-sm focus:outline-none focus:border-ink focus:bg-canvas transition-colors duration-150 resize-none"
-          ></textarea>
-        </div>
-        <button
-          type="submit"
-          class="px-5 py-2 bg-ink text-canvas text-sm font-medium rounded-sm hover:bg-ink-deep transition-colors duration-150"
-        >
-          Send message
-        </button>
-      </form>
     </div>
 
   </div>

@@ -1,0 +1,10 @@
+org: Program Studi Informatika AMIKOM
+role: Fullstack Developer
+kind: work
+start: "2023-10"
+end: "2024-08"
+highlights:
+  - Built the front end of the study program's student showcase platform in React.
+  - Turned UI/UX designs into responsive pages.
+  - Improved client-side performance.
+technologies: [React]
