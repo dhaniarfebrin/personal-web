@@ -165,6 +165,10 @@ export default function AskApp() {
                 // only the latest answer keeps clickable follow-ups
                 u.name === 'suggestions' && i !== turns.length - 1 ? null : <div key={j}>{renderUi(u, pick)}</div>,
               )}
+              {/* model sometimes skips suggest_questions; fall back to the starter chips once the last answer is done */}
+              {i === turns.length - 1 && !busy && !t.error && !t.ui.some((u) => u.name === 'suggestions') && (
+                <Suggestions questions={EXAMPLES.filter((x) => x !== t.q)} onPick={pick} />
+              )}
               {busy && i === turns.length - 1 && !t.text && t.ui.length === 0 && !t.error && <p class="text-mute">[...] thinking</p>}
               {t.error && (
                 <p role="alert" class="mt-2 text-sm text-ink border border-danger px-3 py-2">
