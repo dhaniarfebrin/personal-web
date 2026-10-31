@@ -171,6 +171,13 @@ const resolvedImage = image ? new URL(image, Astro.site).toString() : undefined;
         width: auto;
         margin-inline: auto;
       }
+
+      /* Wide tables scroll inside their own block instead of breaking the page gutter */
+      .prose table {
+        display: block;
+        max-width: 100%;
+        overflow-x: auto;
+      }
     </style>
 
     <!--
