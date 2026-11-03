@@ -24,9 +24,9 @@ You pick what to film:
 - **What-if videos**, one per decision branch ("what if the manager says No?"), one per boundary event (a timer or an error on a task), and one for the messages between pools.
 - **A requirements overview**, made from the requirements document the app already builds, without AI.
 
-You also pick 720p or 1080p, 30 or 60 fps, sound effects and an optional AI narration. Before anything runs, the dialog shows what it will cost. With narration off, the answer is *0 tokens*: everything happens in your browser.
+You also pick a quality (Quick 720p/30 fps, Sharp 1080p/30 fps or Smooth 1080p/60 fps) and an optional AI narration; form detail and sound effects sit under **Advanced**. Before anything runs, the footer of the dialog shows the total length and what it will cost. With narration off, the answer is *0 tokens*: everything happens in your browser.
 
-![The Video walkthrough dialog: the main scenario and one what-if picked, 1080p, and the cost block saying 0 tokens](/images/bpmn-video/dialog.jpg)
+![The Video walkthrough dialog: the main path set, the main scenario and one what-if picked, the Sharp quality preset, and a footer saying 2 videos, about 0:56, 0 tokens](/images/bpmn-video/dialog.jpg)
 
 This is the main scenario exactly as the app exported it (41 seconds, scaled down to 720p for this page, no sound):
 
@@ -111,9 +111,9 @@ For encoding I use [mediabunny](https://mediabunny.dev/), a TypeScript library o
 
 Sound effects are not audio files. They are synthesised with an `OfflineAudioContext` from the cues of each scene: filtered noise for a whoosh or a click, short oscillator sweeps for a pop, a tick, a ding or a chime. Nothing to download, and the sound always matches the animation because both come from the same cue times.
 
-Rendering runs in a queue, one scenario after another. Cancel stops between frames, and each finished video can be previewed in the dialog before you download it.
+Rendering runs in a queue, one scenario after another, with overall progress in the footer. Cancel stops between frames. Each finished video can be previewed in the dialog, downloaded on its own, or, from two videos on, downloaded together as one zip.
 
-![The dialog after a run: two MP4 files, 9.6 MB and 3.9 MB, each with a preview button](/images/bpmn-video/dialog-done.jpg)
+![The dialog after a run: two MP4 files, 9.6 MB and 3.9 MB, each with a Preview button, and Download all (.zip) below them](/images/bpmn-video/dialog-done.jpg)
 
 ## Where AI Fits (and Where It Does Not)
 
