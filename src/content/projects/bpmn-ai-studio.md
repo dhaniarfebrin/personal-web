@@ -1,8 +1,8 @@
 ---
 title: "BPMN AI Studio"
-description: "A browser app that turns a plain-language description of a work process into a standard BPMN diagram. You can change it by chatting, ask questions about it, and export it. It also makes the form for each step and the decision tables behind a decision, and prepares the diagram for Camunda 7 or 8. It uses your own AI key and has an English and Indonesian interface."
+description: "A browser app that turns a plain-language description of a work process into a standard BPMN diagram. You can change it by chatting, ask questions about it, and export it. It also makes the form for each step and the decision tables behind a decision, and prepares the diagram for Camunda 7 or 8. From the same diagram it writes a requirements document (PRD or SRS) and films a video walkthrough of the process, right in the browser. It uses your own AI key and has an English and Indonesian interface."
 featured: true
-technologies: ["React 19", "TypeScript", "Vite", "bpmn-js", "dmn-js", "Vercel AI SDK", "Zod", "Zustand", "Tailwind CSS", "Camunda moddle", "bpmnlint", "FEEL lint", "dnd-kit", "Vitest", "Playwright"]
+technologies: ["React 19", "TypeScript", "Vite", "bpmn-js", "dmn-js", "Vercel AI SDK", "Zod", "Zustand", "Tailwind CSS", "Camunda moddle", "bpmnlint", "FEEL lint", "dnd-kit", "docx", "WebCodecs", "mediabunny", "Vitest", "Playwright"]
 liveUrl: "https://bpmn-ai-studio.pages.dev/"
 githubUrl: ""
 image: "/images/bpmn-ai-studio/diagram-v011-en.png"
@@ -14,7 +14,7 @@ Every company has processes: approving leave, handling an order, fixing an IT pr
 
 **BPMN** (Business Process Model and Notation) is the international standard for these diagrams. Because it is a standard, a BPMN file can be opened in other tools like Camunda or bpmn.io. The problem is that drawing BPMN by hand takes time and training.
 
-BPMN AI Studio lets you type a process the way you would explain it to a colleague, for example *"the employee submits a leave request, the manager approves or rejects it, and HR updates the records"*, and get a clean BPMN diagram back. Since then it has grown past the picture. Each step that a person does can get its own form, a decision can get a decision table, and the same diagram can be prepared for a Camunda 7 or 8 engine. It is for people who need to explain or improve a process but do not know BPMN: HR and operations staff, process owners, business analysts, auditors, and students, and for developers who prepare a process for Camunda.
+BPMN AI Studio lets you type a process the way you would explain it to a colleague, for example *"the employee submits a leave request, the manager approves or rejects it, and HR updates the records"*, and get a clean BPMN diagram back. Since then it has grown past the picture. Each step that a person does can get its own form, a decision can get a decision table, and the same diagram can be prepared for a Camunda 7 or 8 engine. For people who will never read BPMN, it writes a requirements document and films the process as a short video. It is for people who need to explain or improve a process but do not know BPMN: HR and operations staff, process owners, business analysts, auditors, and students, and for developers who prepare a process for Camunda.
 
 ## Goals
 
@@ -25,6 +25,7 @@ BPMN AI Studio lets you type a process the way you would explain it to a colleag
 - Run with **no account and no app server**: the user brings their own AI key, and everything stays in the browser
 - Help a diagram reach a real engine: a **Camunda 7 or 8** file keeps its engine settings through an AI edit and an export, and a new diagram can be prepared for either engine, with placeholders and checks
 - Cover what a process needs around the diagram: the **form** each person fills in, and the **decision tables** behind a decision, both made and changed by chat
+- Explain the process to people who do not read BPMN: a **requirements document** and a **video walkthrough**, both made from the diagram, with AI only as an option
 
 ## Key Features
 
@@ -38,7 +39,7 @@ Since v0.6.0 the diagram fills the whole window, and everything else floats over
 
 ![The form builder for the User Task "Fill in leave form": a field palette on the left, a form with five fields (full name, leave type, start and end date, and a reason that is shown only when the leave type is Other), and an inspector on the right with Field, Validation and Logic tabs for the selected "Leave type" dropdown](/images/bpmn-ai-studio/forms-v011.png)
 
-6. **Decisions (DMN)**: DMN is the sister standard of BPMN, for decision tables. The **Decisions** button opens a workspace for decision tables next to the diagram. Ask *"buat tabel keputusan kredit: skor di bawah 600 ditolak, ..."* and the assistant writes the table. A Business Rule Task in the diagram links to the decision it calls, and one request can draw the process and write its tables together. `.dmn` files can be imported and exported.
+6. **Decisions (DMN)**: DMN is the sister standard of BPMN, for decision tables. The **Decisions** button opens a workspace for decision tables next to the diagram. Ask *"buat tabel keputusan kredit: skor di bawah 600 ditolak, ..."* and the assistant writes the table. A Business Rule Task in the diagram links to the decision it calls, and one request can draw the process and write its tables together. `.dmn` files can be imported and exported, and **Delete all decisions** clears them in one step, with Undo.
 
 ![The Decisions workspace in table view: a "Leave approver" decision table with the inputs Leave type and Days, the output Approver, five rules and the UNIQUE hit policy, with a details panel next to it](/images/bpmn-ai-studio/decisions-v011.png)
 
@@ -46,11 +47,18 @@ Since v0.6.0 the diagram fills the whole window, and everything else floats over
 
 ![A Camunda 8 diagram with the call activity "Check leave balance" selected, the Properties card open on its "Called element" field, and the issues card showing "Engine checks (2)" with a Show link for each check](/images/bpmn-ai-studio/properties-v011.png)
 
-8. **Import and export**: open a `.bpmn` or `.dmn` file, and download the diagram as **PNG** (for documents and chat), SVG, or `.bpmn`. Decisions export as `.dmn`.
-9. **Image input**: attach a photo of a whiteboard sketch, and the AI reads the process from it. The attach button follows the chosen model and is switched off for a model that cannot read images.
-10. **Workspace**: keep several diagrams, each with its own chat, history, forms and decisions, and back them all up to one JSON file. Six ready-made templates (English and Indonesian) let you start without a key.
-11. **Two languages**: the interface is in English and Indonesian. It follows the browser language and can be changed in Settings. The AI answers in the language the user writes in. The labels of the Properties panel are still English.
-12. **Bring your own key**: choose OpenAI, Anthropic Claude, Google Gemini, DeepSeek (the default, because it is cheap), or any OpenAI-compatible endpoint. The model list is loaded from the provider and shows chat models only, and the defaults are current ones (Claude Sonnet 5.5, GPT-6 Luna, Gemini 3.5 Flash-Lite). There is a **Test connection** button, a **Clear stored key** button, and an approximate session cost in USD next to the token count. When the credit or quota of a key is used up, the app says so at once instead of retrying.
+8. **Requirements document**: **Export → Requirements document…** reads the diagram, its forms and its decisions and writes a PRD or an SRS, in English or Indonesian: actors, steps, user stories, business rules from the gateways, acceptance criteria, a data dictionary from the forms, a traceability matrix and the open questions. Sections can be switched off or edited in place, and a section you edited is marked outdated when the diagram changes. **Write with AI** drafts only the narrative parts (summary, goals, scope), which you apply or discard. Download it as PDF (print), Word or Markdown.
+9. **Video walkthrough**: **Export → Video walkthrough…** films the process as MP4 videos, rendered in the browser. You pick the main path (and which way each decision goes), what-if videos for the other branches and for exceptions, the message exchange between pools, and an optional requirements overview. Forms fill themselves in with sample values, decision tables are checked with sample inputs, and the walk goes inside subprocesses. Quality is one choice (Quick 720p, Sharp 1080p, Smooth 1080p at 60 fps), and finished videos can be previewed, downloaded one by one, or saved together as a zip. With AI narration off it costs 0 tokens, and the footer of the dialog shows the cost before anything is sent. How it works: [Turning a BPMN Diagram into a Video, Entirely in the Browser](/blog/bpmn-diagram-to-video).
+
+![The Video walkthrough dialog for the leave-request process: the main scenario and the what-if "Approved by manager? > No" picked, the Sharp quality preset, and a footer with 2 videos, about 0:56 and 0 tokens](/images/bpmn-video/dialog.jpg)
+
+![A frame of the exported main-scenario video: the decision "More than 5 days?" lit on the diagram, and the card on the right showing the chosen Yes branch](/images/bpmn-video/main-decision.jpg)
+
+10. **Import and export**: open a `.bpmn` or `.dmn` file, and download the diagram as **PNG** (for documents and chat), SVG, or `.bpmn`. Decisions export as `.dmn`, the requirements document as PDF, Word or Markdown, and the walkthrough as MP4 (WebM where the browser has no MP4 encoder).
+11. **Image input**: attach a photo of a whiteboard sketch, and the AI reads the process from it. The attach button follows the chosen model and is switched off for a model that cannot read images.
+12. **Workspace**: keep several diagrams, each with its own chat, history, forms and decisions, and back them all up to one JSON file. Six ready-made templates (English and Indonesian) let you start without a key.
+13. **Two languages**: the interface is in English and Indonesian. It follows the browser language and can be changed in Settings. The AI answers in the language the user writes in. The labels of the Properties panel are still English.
+14. **Bring your own key**: choose OpenAI, Anthropic Claude, Google Gemini, DeepSeek (the default, because it is cheap), or any OpenAI-compatible endpoint. The model list is loaded from the provider and shows chat models only, and the defaults are current ones (Claude Sonnet 5.5, GPT-6 Luna, Gemini 3.5 Flash-Lite). There is a **Test connection** button, a **Clear stored key** button, and an approximate session cost in USD next to the token count. When the credit or quota of a key is used up, the app says so at once instead of retrying.
 
 ## Architecture
 
@@ -90,6 +98,8 @@ localStorage (diagrams, chat, snapshots, forms, decisions, settings; storage sch
 - **camunda-bpmn-moddle, zeebe-bpmn-moddle, camunda-dmn-moddle, zeebe-dmn-moddle**: let the canvas read and write Camunda 7 and 8 attributes, for diagrams and decisions, so imported engine settings are not dropped
 - **bpmnlint**: runs in the app as **Engine checks**, with the Camunda compatibility rules for 7.20 to 7.24 and 8.6 to 8.11 plus my own Camunda 7 rules. It loads only for a Camunda diagram. A developer script still checks `.bpmn` files
 - **dnd-kit**: drag and drop in the form builder, also with the keyboard
+- **docx**: writes the Word version of the requirements document. It loads only when you click Word
+- **WebCodecs + mediabunny**: encode the walkthrough videos in the browser, from a Canvas 2D renderer. Sound effects are synthesised with an `OfflineAudioContext`, so there are no audio files. mediabunny loads only when the first video is encoded
 - **Vercel AI SDK**: one way to talk to all the AI providers, with streaming
 - **Zod**: checks that the model's JSON has the right shape
 - **Zustand**: app state
@@ -127,13 +137,16 @@ Diagrams and undo snapshots moved to new storage keys in v0.4.0. On first open, 
 ### Plain-language errors
 Provider errors (wrong key, no credit, rate limit, network) become short sentences with the provider name. Warnings use element names instead of ids. A **Copy diagnostics** button copies a report (with keys removed), and I can turn that report into a test fixture. A used-up credit or quota now says so at once instead of retrying six times.
 
+### The video walks the process like a token
+The forms walkthrough only followed sequence flows from the first start event. Measured on the 26 sample diagrams in the repo, 14 had parts it never reached (boundary events, subprocesses, link jumps, other pools). So the video has its own pure walker that moves like a BPMN token: parallel splits as one group, loops walked once, branches that rejoin the main path, subprocesses entered and left. After it come a storyboard (scenes as plain data), a renderer that draws any moment `t`, and the encoder. The optional AI only rewrites captions, and a scene it gets wrong keeps its data caption, so the video never depends on the model.
+
 ### A separate release branch
 Daily work goes to `main`, where every push runs build and lint (about one minute). The live site deploys only from a `release` branch on Cloudflare Pages. I move `main` to `release` with a fast-forward merge after build, lint, unit tests, and browser tests are green, so testers only see a version that passed everything.
 
 ### Tests
 - **16 selfcheck files**: small scripts that run the core pipeline modules in Node (schema, normalize, validation, XML, layout, diff)
-- **3,201 Vitest tests** in 300 files, including property tests that generate random valid diagrams and check the round trip, and a corpus of about 250 diagrams for layout quality
-- **432 Playwright browser tests** in 68 files, using a mock AI server that sends fixed answers. They run in parallel against a production build in about two minutes. One suite runs the same edits through the patch path and the full import path, and both must give the same diagram
+- **3,629 Vitest tests** in 338 files, including property tests that generate random valid diagrams and check the round trip, and a corpus of about 250 diagrams for layout quality
+- **452 Playwright browser tests** in 70 files, using a mock AI server that sends fixed answers. They run in parallel against a production build in about two minutes. One suite runs the same edits through the patch path and the full import path, and both must give the same diagram
 - A **live eval** with real prompts against a real provider, scoring each edit for compliance and precision (nothing else touched), now also for decision tables and the router. It needs an API key, so it runs by hand, not in CI
 - A **Docker smoke test** that deploys sample diagrams and decisions to Camunda 7.22 and 8.8.5. It is not part of CI
 
@@ -153,6 +166,9 @@ Releases on the way (the live site deploys from the `release` branch):
 - **v0.7.0 (1 Nov)**: forms for every User Task, the walkthrough, and an easier-to-read layout. **v0.8.0 (1 Nov)**: selection as context. **v0.8.1** lets answers see forms and the screen.
 - **v0.9.0 (2 Nov)**: decisions (DMN). **v0.10.0 (2 Nov)**: forms by chat, the Forms button, and the diagram that draws itself. **v0.10.1** adds ranking tables and batches for many forms.
 - **v0.11.0 (2 Nov)**: help in the Properties panel and Engine checks for Camunda 7 and 8.
+- **v0.12.0 (2 Nov)**: the requirements document (PRD or SRS) with PDF, Word and Markdown download, and Write with AI for the narrative sections.
+- **v0.13.0 (4 Nov)**: the video walkthrough: main path, what-ifs, exceptions, message exchange, subprocesses, decision tables, a requirements overview video, and optional AI narration.
+- **v0.14.0 (4 Nov)**: an easier video form (quality presets, a footer with progress, Advanced options, remembered settings), Download all as zip, and Delete all decisions.
 - **Next**: an engine version picker, a link from a form to its User Task in the exported file, FEEL autocomplete, and Indonesian labels in the Properties panel. Then a trial mode so testers can start without a key (a small server that holds a key with a daily limit), an open beta with abuse protection and a template gallery, an agent that can take several steps on its own with checks after each step, memory of the user's naming habits, and later a self-hosted version for companies.
 
 ## Development Time
@@ -163,7 +179,8 @@ I built this project together with AI coding agents, mostly **Claude Code**. The
 - **Main build (24 to 28 October 2026)**: about 15 hours for 205 commits. Validation, auto-layout, BPMN import, the patch-and-verify edits, browser tests, the workspace, two languages, the M0 hardening, and the M1 alpha features
 - **Releases v0.2.0 to v0.4.0 (29 to 30 October 2026)**: about 16 hours for 145 commits. Templates, the layout engine fork, the dynamic model catalog, Camunda data round trip, and storage v2
 - **Releases v0.5.0 to v0.11.0 (31 October to 2 November 2026)**: about 25 hours for 199 commits. Engine settings and placeholders, the floating layout, forms, decisions (DMN), and engine checks
-- **Total**: about 64 active hours for about 605 commits, spread over 12 working days
+- **Releases v0.12.0 to v0.14.0 (2 to 4 November 2026)**: 48 commits on `main`. The requirements document and the video walkthrough. Much of the video work was squashed into a few commits before the merge, so the commit gaps do not give a useful hour count for this part
+- **Total up to v0.11.0**: about 64 active hours for about 605 commits, spread over 12 working days. With v0.12.0 to v0.14.0 it is about 655 commits over 14 working days
 
 This number is a lower bound, because the agents often made several commits at the same time and time between sessions is not counted. My role was mostly the plan and milestones, architecture decisions, review, and testing in the browser. The agents wrote most of the code, and the tests and CI kept it honest. For me, this is the main lesson: with AI agents and a good test suite, one person can ship a real product in a few days, not a few months.
 
