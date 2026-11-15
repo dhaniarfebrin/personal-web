@@ -36,41 +36,36 @@ The new rules fit on one screen. They live in one file that every session in my 
 7. **One topic per session.** Finish, write down what matters, then `/clear`.
 
 <figure>
-<svg viewBox="0 0 520 310" width="100%" role="img" aria-labelledby="lw1-t" style="max-width:100%;height:auto;display:block">
+<svg viewBox="0 0 520 380" width="100%" role="img" aria-labelledby="lw1-t" style="max-width:100%;height:auto;display:block">
 <title id="lw1-t">A request takes one of two paths. A small change is done by the main session directly. A feature or a change to three or more files first gets a written plan in .ai/plan.md, then waits for the user's OK, then one executor implements it in a fresh context. Both paths end in a stop hook that runs lint, typecheck and related tests, silent when they pass, and then a short report of at most five lines.</title>
 <style>.lw-box{fill:var(--color-surface-soft);stroke:var(--color-hairline-strong);stroke-width:1.5}.lw-card{fill:var(--color-surface-card);stroke:var(--color-hairline-strong);stroke-width:1.5}.lw-t{fill:var(--color-ink);font-size:13px}.lw-b{fill:var(--color-ink);font-size:13px;font-weight:700}.lw-s{fill:var(--color-mute);font-size:12px}.lw-line{stroke:var(--color-ink);stroke-width:1.5;fill:none}.lw-arrow{fill:var(--color-ink)}</style>
 <defs><marker id="lwa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="lw-arrow" d="M0 0L10 5L0 10z"/></marker></defs>
-<rect class="lw-card" x="10" y="120" width="100" height="50"/>
-<text class="lw-b" x="60" y="150" text-anchor="middle">Request</text>
-<rect class="lw-box" x="150" y="40" width="140" height="50"/>
-<text class="lw-t" x="220" y="62" text-anchor="middle">Main session</text>
-<text class="lw-s" x="220" y="79" text-anchor="middle">edits directly</text>
-<rect class="lw-box" x="150" y="200" width="100" height="50"/>
-<text class="lw-t" x="200" y="222" text-anchor="middle">plan-task</text>
-<text class="lw-s" x="200" y="239" text-anchor="middle">.ai/plan.md</text>
-<rect class="lw-box" x="265" y="200" width="60" height="50"/>
-<text class="lw-t" x="295" y="230" text-anchor="middle">My OK</text>
-<rect class="lw-box" x="340" y="200" width="150" height="50"/>
-<text class="lw-t" x="415" y="222" text-anchor="middle">One executor</text>
-<text class="lw-s" x="415" y="239" text-anchor="middle">fresh context</text>
-<rect class="lw-card" x="340" y="120" width="150" height="50"/>
-<text class="lw-t" x="415" y="142" text-anchor="middle">Stop hook</text>
-<text class="lw-s" x="415" y="159" text-anchor="middle">lint, types, tests</text>
-<rect class="lw-card" x="340" y="40" width="150" height="50"/>
-<text class="lw-t" x="415" y="62" text-anchor="middle">Report</text>
-<text class="lw-s" x="415" y="79" text-anchor="middle">at most 5 lines</text>
-<line class="lw-line" x1="110" y1="135" x2="148" y2="74" marker-end="url(#lwa)"/>
-<text class="lw-s" x="72" y="104">small</text>
-<line class="lw-line" x1="110" y1="155" x2="148" y2="216" marker-end="url(#lwa)"/>
-<text class="lw-s" x="40" y="194">3+ files</text>
-<line class="lw-line" x1="250" y1="225" x2="263" y2="225" marker-end="url(#lwa)"/>
-<line class="lw-line" x1="325" y1="225" x2="338" y2="225" marker-end="url(#lwa)"/>
-<line class="lw-line" x1="290" y1="74" x2="338" y2="134" marker-end="url(#lwa)"/>
-<line class="lw-line" x1="415" y1="200" x2="415" y2="172" marker-end="url(#lwa)"/>
-<line class="lw-line" x1="415" y1="120" x2="415" y2="92" marker-end="url(#lwa)"/>
-<text class="lw-s" x="422" y="110">pass: silent</text>
-<text class="lw-s" x="10" y="280">On a failure the hook sends the errors back to the same agent.</text>
-<text class="lw-s" x="10" y="298">Both paths read repo-map.md and NOTES.md instead of the whole repo.</text>
+<text class="lw-s" x="10" y="20">small change</text>
+<text class="lw-s" x="270" y="20">3+ files</text>
+<rect class="lw-box" x="10" y="30" width="230" height="44"/>
+<text class="lw-t" x="125" y="49" text-anchor="middle">Main session</text>
+<text class="lw-s" x="125" y="65" text-anchor="middle">edits directly</text>
+<rect class="lw-box" x="270" y="30" width="240" height="44"/>
+<text class="lw-t" x="390" y="49" text-anchor="middle">Write the plan</text>
+<text class="lw-s" x="390" y="65" text-anchor="middle">.ai/plan.md</text>
+<rect class="lw-box" x="270" y="94" width="240" height="44"/>
+<text class="lw-t" x="390" y="121" text-anchor="middle">I say OK</text>
+<rect class="lw-box" x="270" y="158" width="240" height="44" style="stroke-width:2.5"/>
+<text class="lw-b" x="390" y="177" text-anchor="middle">One executor</text>
+<text class="lw-s" x="390" y="193" text-anchor="middle">fresh context</text>
+<rect class="lw-card" x="10" y="230" width="500" height="44"/>
+<text class="lw-t" x="260" y="249" text-anchor="middle">Stop hook</text>
+<text class="lw-s" x="260" y="265" text-anchor="middle">lint, types, tests · silent when they pass</text>
+<rect class="lw-card" x="10" y="292" width="500" height="40"/>
+<text class="lw-t" x="260" y="309" text-anchor="middle">Report</text>
+<text class="lw-s" x="260" y="325" text-anchor="middle">at most 5 lines</text>
+<line class="lw-line" x1="125" y1="74" x2="125" y2="228" marker-end="url(#lwa)"/>
+<line class="lw-line" x1="390" y1="74" x2="390" y2="92" marker-end="url(#lwa)"/>
+<line class="lw-line" x1="390" y1="138" x2="390" y2="156" marker-end="url(#lwa)"/>
+<line class="lw-line" x1="390" y1="202" x2="390" y2="228" marker-end="url(#lwa)"/>
+<line class="lw-line" x1="260" y1="274" x2="260" y2="290" marker-end="url(#lwa)"/>
+<text class="lw-s" x="10" y="356">On a failure the hook sends the errors back to the same agent.</text>
+<text class="lw-s" x="10" y="374">Both paths read repo-map.md and NOTES.md instead of the whole repo.</text>
 </svg>
 <figcaption>Two paths for a request. Only the bigger one starts a second context.</figcaption>
 </figure>
